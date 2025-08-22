@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-[calc(100vh-60px)] max-[400px]:h-[100vh] mt-15 flex items-center justify-center bg-black overflow-hidden">
+    <section className="relative w-full h-[calc(100vh)] max-[430px]:h-[110vh] mt-15 flex items-center justify-center bg-black overflow-hidden">
       {/* Fallback Image */}
       <img
         src="/images/homepage.jpg"
@@ -46,7 +46,6 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10">
-              <Award className="w-4 h-4 text-[#ede7dd]" />
               <span className="text-sm sm:text-base font-body font-semibold text-[#ede7dd] tracking-wider">
                 SHAPING FUTURES THROUGH SMARTER BUYING
               </span>
@@ -79,9 +78,8 @@ export default function Hero() {
 
               <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight leading-tight">
                 <span className="relative">
-                  <span className="text-[#ede7dd] drop-shadow-lg">Buyers</span>
-                  <span className="ml-3 px-4 py-2 bg-gradient-to-r from-[#6e1e24] to-[#6e1e24]/80 text-white rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 inline-block">
-                    Agents
+                  <span className="text-[#ede7dd] drop-shadow-lg">
+                    Buyers Agents
                   </span>
                 </span>
               </span>
@@ -101,7 +99,7 @@ export default function Hero() {
           >
             <div className="max-w-2xl px-6 py-4 rounded-2xl bg-white/10 border border-white/20 shadow-lg">
               <p className="text-base sm:text-lg lg:text-xl font-body text-gray-200 leading-relaxed">
-                We help{" "}
+                At A&P Buyers Agency, we help{" "}
                 <span className="text-[#ede7dd] font-semibold">
                   owner-occupiers
                 </span>
@@ -150,7 +148,7 @@ export default function Hero() {
             <Button
               asChild
               size="lg"
-              className="group relative overflow-hidden font-semibold px-8 py-6 rounded-2xl text-lg bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-xl dark:text-black"
+              className="group relative overflow-hidden font-semibold px-8 py-6 rounded-2xl text-lg bg-gradient-to-r from-[#ede7dd] to-[#ede7dd]/90 hover:from-[#ede7dd]/90 hover:to-[#ede7dd] shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-xl text-black"
               style={{ willChange: "transform" }}
             >
               <Link href="/book" className="flex items-center gap-2">
@@ -169,10 +167,14 @@ export default function Hero() {
               className="font-semibold px-8 py-6 rounded-2xl text-lg bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:scale-105"
               style={{ willChange: "transform" }}
             >
-              <Link href="/services">Learn More</Link>
+              <Link href="/services">Our Expertise</Link>
             </Button>
           </motion.div>
         </motion.div>
+        <p className="mt-6 text-center text-xs text-gray-400 max-w-md mx-auto">
+          Powered by Property Buyers Team - NSW Lic. 10087054, supervised by
+          Andrey Vinogradov - Class 1 Lic. 20244222.
+        </p>
       </div>
     </section>
   );

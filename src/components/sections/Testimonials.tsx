@@ -17,16 +17,13 @@ export default function TestimonialCarousel() {
   );
   const [isMobile, setIsMobile] = useState(false);
 
-  // Better mobile detection with useEffect
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    // Initial check
     checkMobile();
 
-    // Add resize listener
     window.addEventListener("resize", checkMobile);
 
     return () => {
@@ -54,7 +51,6 @@ export default function TestimonialCarousel() {
     return stopAutoplay;
   }, [startAutoplay, isHovered]);
 
-  // Fixed toggle function using Set for better performance and reliability
   const toggleReadMore = useCallback((index: number) => {
     setExpandedIndexes((prev) => {
       const newSet = new Set(prev);
@@ -67,7 +63,6 @@ export default function TestimonialCarousel() {
     });
   }, []);
 
-  // Enhanced text truncation function
   const getTruncatedText = useCallback(
     (text: string, index: number) => {
       if (!text) return { visibleText: "", needsTruncation: false };
@@ -141,7 +136,7 @@ export default function TestimonialCarousel() {
                       whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                       className={clsx(
-                        "bg-white dark:bg-zinc-900 border border-border p-8 rounded-2xl shadow-lg text-left h-full flex flex-col justify-between max-[1050px]:w-md max-[970px]:w-sm max-[870px]:w-[350px] max-[767px]:w-full",
+                        "bg-amber-900/20 border border-amber-900/30 dark:bg-zinc-900 p-8 rounded-2xl shadow-lg text-left h-full flex flex-col justify-between max-[1050px]:w-md max-[970px]:w-sm max-[870px]:w-[350px] max-[767px]:w-full",
                         "transition-colors duration-200 cursor-pointer text-justify"
                       )}
                     >
@@ -151,7 +146,7 @@ export default function TestimonialCarousel() {
                           {visibleText}
                         </div>
 
-                        {/* Enhanced Read More/Less Button */}
+                        {/* Read More/Less Button */}
                         {isMobile && needsTruncation && (
                           <button
                             onClick={(e) => {

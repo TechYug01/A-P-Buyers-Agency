@@ -38,7 +38,7 @@ export default function StatsSection() {
   const weeks = useCounter(2, inView, 1500);
   const yieldPercent = useCounter(6, inView, 1500);
   const hotspots = useCounter(35, inView, 1500);
-  const offMarket = useCounter(60, inView, 1500);
+  const offMarket = useCounter(80, inView, 1500);
 
   const stats = [
     {
@@ -46,32 +46,28 @@ export default function StatsSection() {
       value: weeks,
       suffix: " Weeks",
       label: "Average acquisition time",
-      gradient: "from-blue-500/20 to-primary/20",
-      accentColor: "text-blue-600 dark:text-blue-400",
+      accentColor: "text-primary max-md:text-[#ede7dd]",
     },
     {
       icon: <TrendingUp size={32} />,
       value: yieldPercent,
       suffix: "%",
       label: "Average net yield",
-      gradient: "from-emerald-500/20 to-primary/20",
-      accentColor: "text-emerald-600 dark:text-emerald-400",
+      accentColor: "text-primary max-md:text-[#ede7dd]",
     },
     {
       icon: <MapPin size={32} />,
       value: hotspots,
       suffix: "+",
-      label: "Hotspots analysed weekly",
-      gradient: "from-purple-500/20 to-primary/20",
-      accentColor: "text-purple-600 dark:text-purple-400",
+      label: "Hotspots analysed Monthly",
+      accentColor: "text-primary max-md:text-[#ede7dd]",
     },
     {
       icon: <Building2 size={32} />,
       value: offMarket,
       suffix: "%",
       label: "Properties acquired off-market",
-      gradient: "from-amber-500/20 to-primary/20",
-      accentColor: "text-amber-600 dark:text-amber-500",
+      accentColor: "text-primary max-md:text-[#ede7dd]",
     },
   ];
 
@@ -79,16 +75,26 @@ export default function StatsSection() {
     <section
       ref={ref}
       className="relative bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-zinc-900 dark:via-zinc-800/50 dark:to-zinc-900 flex flex-row min-h-[90vh] overflow-hidden max-md:py-15"
+      style={{
+        backgroundImage: 'url("/images/stats.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      {/* Image Section */}
+      {/* Mobile Background Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-10 md:hidden" />
+
+      {/* Desktop Image Section*/}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative w-1/2 h-auto max-md:hidden"
+        style={{ background: "none" }}
       >
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full bg-accent dark:bg-zinc-800">
           <Image
             src="/images/stats.jpg"
             alt="Performance Highlights"
@@ -103,7 +109,9 @@ export default function StatsSection() {
       </motion.div>
 
       {/* Stats Section */}
-      <div className="relative w-full md:w-1/2 flex items-center justify-center px-8 sm:px-12 lg:px-16">
+      <div className="relative w-full md:w-1/2 flex items-center justify-center px-8 sm:px-12 lg:px-16 z-20">
+        <div className="bg-accent dark:bg-zinc-800 w-full h-full absolute inset-0 -z-10 max-md:hidden" />
+
         <div className="text-center space-y-12 max-w-2xl py-8">
           {/* Header */}
           <motion.div
@@ -113,12 +121,14 @@ export default function StatsSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="space-y-4"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-gray-900 dark:text-white">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-gray-900 dark:text-white md:text-gray-900 md:dark:text-white max-md:text-white">
               Performance
-              <span className="block text-primary mt-1">Highlights</span>
+              <span className="block text-primary mt-1 max-md:text-[#ede7dd]">
+                Highlights
+              </span>
             </h2>
 
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 md:text-gray-600 md:dark:text-gray-300 max-md:text-gray-200 max-w-xl mx-auto leading-relaxed">
               Real numbers from real deals. Our track record speaks for itself
               across Australia.
             </p>
@@ -137,12 +147,12 @@ export default function StatsSection() {
               >
                 {/* Stat Card */}
                 <div
-                  className={`relative p-8 rounded-3xl bg-gradient-to-br ${stat.gradient} border border-gray-200/50 dark:border-gray-700/30 shadow-lg transition-all duration-300 ease-out bg-white/80 dark:bg-zinc-800/80 hover:shadow-xl hover:-translate-y-2 hover:border-gray-200 dark:hover:border-gray-600/50`}
+                  className="relative p-8 rounded-3xl bg-amber-900/30 border border-amber-900/40 shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
                   style={{ willChange: "transform" }}
                 >
                   {/* Icon Container */}
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/90 to-white/70 dark:from-zinc-700/90 dark:to-zinc-700/70 flex items-center justify-center mx-auto shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-110">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 max-md:from-[#ede7dd]/20 max-md:to-[#ede7dd]/10 flex items-center justify-center mx-auto shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-110">
                       <div className={stat.accentColor}>{stat.icon}</div>
                     </div>
                   </div>
@@ -150,23 +160,22 @@ export default function StatsSection() {
                   {/* Stats Display */}
                   <div className="space-y-3">
                     <div className="relative">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent dark:from-white dark:via-gray-200 dark:to-white">
+                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-white/90 group-hover:text-white">
                         {stat.value}
-                        <span
-                          className={`${stat.accentColor} text-3xl sm:text-4xl`}
-                        >
+                        <span className="text-primary max-md:text-[#ede7dd] text-3xl sm:text-4xl">
                           {stat.suffix}
                         </span>
                       </p>
                     </div>
 
-                    <p className="text-sm sm:text-base font-medium text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {/* Beige Label Text */}
+                    <p className="text-sm sm:text-base font-medium text-[#f5deb3] leading-relaxed">
                       {stat.label}
                     </p>
                   </div>
 
-                  {/* bottom accent */}
-                  <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
+                  {/* Bottom accent */}
+                  <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
                 </div>
               </motion.div>
             ))}

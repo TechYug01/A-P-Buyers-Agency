@@ -2,12 +2,26 @@ export const contacts = [
   {
     id: "phone",
     title: "Phone",
-    value: "+0423 512 669",
+    name: "Contact Anita",
+    value: "0423 512 669",
+  },
+  {
+    id: "phone1",
+    name: "Contact Pratiksha",
+    title: "Phone",
+    value: "0412 078 039",
   },
   {
     id: "email",
     title: "Email",
+    name: "Email Anita",
     value: "anita@apbuyersagency.com.au",
+  },
+  {
+    id: "email1",
+    name: "Email Pratiksha",
+    title: "Email",
+    value: "Pratiksha@apbuyersagency.com.au",
   },
 ];
 

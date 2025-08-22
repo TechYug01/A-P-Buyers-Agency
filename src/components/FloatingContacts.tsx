@@ -1,12 +1,140 @@
 "use client";
 
-import { Mail, MessageCircle, Phone, Users } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Mail, MessageCircle, Phone, User, Users, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+// Contact information
+const contactInfo = [
+  {
+    name: "Anita",
+    phone: "61 423 512 669",
+    email: "anita@apbuyersagency.com.au",
+  },
+  {
+    name: "Pratiksha",
+    phone: "0412 078 039",
+    email: "pratiksha@apbuyersagency.com.au",
+  },
+];
+
+export function ContactModal({
+  isOpen,
+  onClose,
+  type,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  type: "phone" | "email";
+}) {
+  const isPhone = type === "phone";
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="bg-white/95 dark:bg-zinc-900/95 rounded-3xl p-8 max-w-md w-full shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
+                {isPhone ? (
+                  <Phone className="w-8 h-8 text-primary" />
+                ) : (
+                  <Mail className="w-8 h-8 text-primary" />
+                )}
+              </div>
+              <h3 className="text-2xl font-bold text-dark dark:text-white mb-2">
+                {isPhone ? "Call Us" : "Email Us"}
+              </h3>
+              <p className="text-muted-foreground dark:text-gray-300">
+                Choose who you'd like to {isPhone ? "call" : "email"}
+              </p>
+            </div>
+
+            {/* Contact Options */}
+            <div className="space-y-4">
+              {contactInfo.map((person, index) => (
+                <div key={person.name}>
+                  <a
+                    href={
+                      isPhone ? `tel:${person.phone}` : `mailto:${person.email}`
+                    }
+                    className="flex items-center gap-4 p-4 rounded-xl bg-amber-900/20 hover:bg-amber-900/30 border border-amber-900/30 hover:border-amber-900/50 transition-all duration-200 group w-full"
+                    onClick={onClose}
+                  >
+                    {/* Avatar */}
+                    <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <User className="w-7 h-7 text-primary" />
+                    </div>
+
+                    {/* Contact Info */}
+                    <div className="flex-grow">
+                      <h4 className="font-semibold text-white/90 group-hover:text-white mb-1">
+                        {person.name}
+                      </h4>
+                      <p className="text-sm font-medium text-primary">
+                        {isPhone ? person.phone : person.email}
+                      </p>
+                    </div>
+
+                    {/* Action Icon */}
+                    <div className="flex-shrink-0">
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                          isPhone
+                            ? "bg-green-500/20 group-hover:bg-green-500/30"
+                            : "bg-blue-500/20 group-hover:bg-blue-500/30"
+                        }`}
+                      >
+                        {isPhone ? (
+                          <Phone className="w-5 h-5 text-green-400" />
+                        ) : (
+                          <Mail className="w-5 h-5 text-blue-400" />
+                        )}
+                      </div>
+                    </div>
+                  </a>
+
+                  {index < contactInfo.length - 1 && (
+                    <div className="h-px bg-amber-900/20 my-3" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
 
 export default function FloatingContacts() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -19,24 +147,24 @@ export default function FloatingContacts() {
     {
       id: "phone",
       icon: <Phone size={20} />,
-      label: "Call Now: +0423 512 669",
+      label: "Call Us",
       sublabel: "Available 9AM - 6PM",
-      href: "tel:+0423512669",
-      gradient: "from-red-500 via-red-600 to-red-700",
-      hoverGradient: "from-red-400 via-red-500 to-red-600",
-      glowColor: "shadow-red-500/25",
-      iconBg: "bg-red-500/20",
+      onClick: () => setPhoneModalOpen(true),
+      gradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      hoverGradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      glowColor: "shadow-[#6e1e24]/25",
+      iconBg: "bg-[#6e1e24]/20",
     },
     {
       id: "mail",
       icon: <Mail size={20} />,
       label: "Email Us",
-      sublabel: "anita@apbuyersagency.com.au",
-      href: "mailto:anita@apbuyersagency.com.au",
-      gradient: "from-blue-500 via-blue-600 to-blue-700",
-      hoverGradient: "from-blue-400 via-blue-500 to-blue-600",
-      glowColor: "shadow-blue-500/25",
-      iconBg: "bg-blue-500/20",
+      sublabel: "Reach out to us through Email",
+      onClick: () => setEmailModalOpen(true),
+      gradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      hoverGradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      glowColor: "shadow-[#6e1e24]/25",
+      iconBg: "bg-[#6e1e24]/20",
     },
     {
       id: "whatsapp",
@@ -44,10 +172,10 @@ export default function FloatingContacts() {
       label: "Join WhatsApp Group",
       sublabel: "Get exclusive property alerts",
       href: "https://chat.whatsapp.com/G5cbBBSLohV4zeNVwD2LbR",
-      gradient: "from-green-500 via-green-600 to-green-700",
-      hoverGradient: "from-green-400 via-green-500 to-green-600",
-      glowColor: "shadow-green-500/25",
-      iconBg: "bg-green-500/20",
+      gradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      hoverGradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      glowColor: "shadow-[#6e1e24]/25",
+      iconBg: "bg-[#6e1e24]/20",
       badge: <Users className="w-3 h-3" />,
     },
   ];
@@ -60,101 +188,176 @@ export default function FloatingContacts() {
       >
         {contacts.map((contact) => {
           const isHovered = hovered === contact.id;
+          const isWhatsApp = contact.id === "whatsapp";
 
           return (
             <div key={contact.id} className="relative flex justify-end">
               {/* Contact Button */}
-              <Link
-                href={contact.href}
-                target="_blank"
-                onClick={() => setHovered(null)}
-                onMouseEnter={() => !isMobile && setHovered(contact.id)}
-                onMouseLeave={() => !isMobile && setHovered(null)}
-                className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden backdrop-blur-sm border border-white/20 ${
-                  contact.glowColor
-                } ${
-                  isHovered && !isMobile
-                    ? `bg-gradient-to-r ${contact.hoverGradient} w-80 pl-4 pr-6 shadow-2xl`
-                    : `bg-gradient-to-r ${contact.gradient} w-14 hover:shadow-xl`
-                } h-14`}
-                style={{
-                  transform:
+              {isWhatsApp ? (
+                <Link
+                  href={contact.href!}
+                  target="_blank"
+                  onClick={() => setHovered(null)}
+                  onMouseEnter={() => !isMobile && setHovered(contact.id)}
+                  onMouseLeave={() => !isMobile && setHovered(null)}
+                  className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden backdrop-blur-sm border border-white/20 ${
+                    contact.glowColor
+                  } ${
                     isHovered && !isMobile
-                      ? "scale(1.02)"
-                      : "translateX(0) scale(1)",
-                }}
-              >
-                {/* Shine Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                      ? `bg-gradient-to-r ${contact.hoverGradient} w-80 pl-4 pr-6 shadow-2xl`
+                      : `bg-gradient-to-r ${contact.gradient} w-14 hover:shadow-xl`
+                  } h-14`}
+                  style={{
+                    transform:
+                      isHovered && !isMobile
+                        ? "scale(1.02)"
+                        : "translateX(0) scale(1)",
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
 
-                {/* Icon Container */}
-                <div className="relative flex items-center justify-center min-w-[3.5rem] h-14">
-                  <div
-                    className={`w-10 h-10 rounded-xl ${contact.iconBg} backdrop-blur-sm flex items-center justify-center transition-all duration-200 group-hover:scale-110`}
-                  >
-                    <div className="text-white relative">
-                      {contact.icon}
-                      {/* Pulse ring for WhatsApp */}
-                      {contact.id === "whatsapp" && (
+                  <div className="relative flex items-center justify-center min-w-[3.5rem] h-14">
+                    <div
+                      className={`w-10 h-10 rounded-xl ${contact.iconBg} backdrop-blur-sm flex items-center justify-center transition-all duration-200 group-hover:scale-110`}
+                    >
+                      <div className="text-white relative">
+                        {contact.icon}
                         <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-ping" />
-                      )}
+                      </div>
+                    </div>
+
+                    {contact.badge && (
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-white animate-bounce">
+                        {contact.badge}
+                      </div>
+                    )}
+                  </div>
+
+                  <div
+                    className={`flex flex-col transition-all duration-200 ${
+                      isHovered && !isMobile
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 -translate-x-4"
+                    }`}
+                  >
+                    <span className="text-white text-sm font-semibold whitespace-nowrap">
+                      {contact.label}
+                    </span>
+                    <span className="text-white/80 text-xs whitespace-nowrap">
+                      {contact.sublabel}
+                    </span>
+                  </div>
+
+                  <div
+                    className={`ml-auto transition-all duration-200 ${
+                      isHovered && !isMobile
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 translate-x-2"
+                    }`}
+                  >
+                    <div className="w-2 h-2 border-r-2 border-b-2 border-white/60 rotate-[-45deg]" />
+                  </div>
+
+                  <div className="absolute inset-0 pointer-events-none">
+                    {[...Array(3)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
+                        style={{
+                          top: `${20 + i * 15}%`,
+                          right: `${10 + i * 5}%`,
+                          animationDuration: "2s",
+                        }}
+                      />
+                    ))}
+                  </div>
+                </Link>
+              ) : (
+                <button
+                  onClick={contact.onClick}
+                  onMouseEnter={() => !isMobile && setHovered(contact.id)}
+                  onMouseLeave={() => !isMobile && setHovered(null)}
+                  className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden backdrop-blur-sm border border-white/20 ${
+                    contact.glowColor
+                  } ${
+                    isHovered && !isMobile
+                      ? `bg-gradient-to-r ${contact.hoverGradient} w-80 pl-4 pr-6 shadow-2xl`
+                      : `bg-gradient-to-r ${contact.gradient} w-14 hover:shadow-xl`
+                  } h-14`}
+                  style={{
+                    transform:
+                      isHovered && !isMobile
+                        ? "scale(1.02)"
+                        : "translateX(0) scale(1)",
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+
+                  <div className="relative flex items-center justify-center min-w-[3.5rem] h-14">
+                    <div
+                      className={`w-10 h-10 rounded-xl ${contact.iconBg} backdrop-blur-sm flex items-center justify-center transition-all duration-200 group-hover:scale-110`}
+                    >
+                      <div className="text-white relative">{contact.icon}</div>
                     </div>
                   </div>
 
-                  {/* Badge for WhatsApp */}
-                  {contact.badge && (
-                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-white animate-bounce">
-                      {contact.badge}
-                    </div>
-                  )}
-                </div>
+                  <div
+                    className={`flex flex-col transition-all duration-200 ${
+                      isHovered && !isMobile
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 -translate-x-4"
+                    }`}
+                  >
+                    <span className="text-white text-sm font-semibold whitespace-nowrap">
+                      {contact.label}
+                    </span>
+                    <span className="text-white/80 text-xs whitespace-nowrap">
+                      {contact.sublabel}
+                    </span>
+                  </div>
 
-                {/* Content */}
-                <div
-                  className={`flex flex-col transition-all duration-200 ${
-                    isHovered && !isMobile
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-4"
-                  }`}
-                >
-                  <span className="text-white text-sm font-semibold whitespace-nowrap">
-                    {contact.label}
-                  </span>
-                  <span className="text-white/80 text-xs whitespace-nowrap">
-                    {contact.sublabel}
-                  </span>
-                </div>
+                  <div
+                    className={`ml-auto transition-all duration-200 ${
+                      isHovered && !isMobile
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 translate-x-2"
+                    }`}
+                  >
+                    <div className="w-2 h-2 border-r-2 border-b-2 border-white/60 rotate-[-45deg]" />
+                  </div>
 
-                {/* Arrow indicator */}
-                <div
-                  className={`ml-auto transition-all duration-200 ${
-                    isHovered && !isMobile
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 translate-x-2"
-                  }`}
-                >
-                  <div className="w-2 h-2 border-r-2 border-b-2 border-white/60 rotate-[-45deg]" />
-                </div>
-
-                {/* Floating dots animation */}
-                <div className="absolute inset-0 pointer-events-none">
-                  {[...Array(3)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
-                      style={{
-                        top: `${20 + i * 15}%`,
-                        right: `${10 + i * 5}%`,
-                        animationDuration: "2s",
-                      }}
-                    />
-                  ))}
-                </div>
-              </Link>
+                  <div className="absolute inset-0 pointer-events-none">
+                    {[...Array(3)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
+                        style={{
+                          top: `${20 + i * 15}%`,
+                          right: `${10 + i * 5}%`,
+                          animationDuration: "2s",
+                        }}
+                      />
+                    ))}
+                  </div>
+                </button>
+              )}
             </div>
           );
         })}
       </div>
+
+      {/* Contact Modals */}
+      <ContactModal
+        isOpen={phoneModalOpen}
+        onClose={() => setPhoneModalOpen(false)}
+        type="phone"
+      />
+
+      <ContactModal
+        isOpen={emailModalOpen}
+        onClose={() => setEmailModalOpen(false)}
+        type="email"
+      />
     </>
   );
 }

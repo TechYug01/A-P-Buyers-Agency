@@ -56,15 +56,9 @@ export default function Footer() {
               Australia&apos;s trusted property buying experts, delivering
               tailored solutions for owner-occupiers, investors, and developers.
             </p>
-
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 text-primary text-xs font-medium">
-              <Building2 className="w-3 h-3" />
-              <span>Licensed & Trusted</span>
-            </div>
           </motion.div>
 
-          {/* Enhanced Quick Links */}
+          {/* Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +77,7 @@ export default function Footer() {
                 { name: "Find Us", href: "/find-us" },
                 { name: "Events", href: "/events" },
                 { name: "Book Now", href: "/book" },
-              ].map((link, index) => (
+              ].map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -100,7 +94,7 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Enhanced Contact Info */}
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -136,7 +130,7 @@ export default function Footer() {
                     </div>
                     <div>
                       <div className="font-medium text-xs text-primary/70 uppercase tracking-wide mb-1">
-                        {contact.title}
+                        {contact.name}
                       </div>
                       <div className="break-all">{contact.value}</div>
                     </div>
@@ -146,7 +140,7 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Enhanced Follow Us */}
+          {/* Follow Us */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -179,7 +173,7 @@ export default function Footer() {
                     name: "LinkedIn",
                     color: "hover:bg-blue-600",
                   },
-                ].map((social, index) => (
+                ].map((social) => (
                   <Link
                     key={social.name}
                     href={social.url}

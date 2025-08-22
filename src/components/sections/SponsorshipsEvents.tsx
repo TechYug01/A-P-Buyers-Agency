@@ -59,7 +59,7 @@ export default function SponsorshipsEventsOverview() {
                 {/* Image Section */}
                 <div className="relative w-full lg:w-1/2 h-80 lg:h-96">
                   <Image
-                    src="/images/collaborate.jpg"
+                    src="/images/collaborate_bg.jpg"
                     alt="Collaborate"
                     fill
                     className="object-cover transition-transform duration-700 hover:scale-105"

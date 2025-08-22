@@ -20,9 +20,6 @@ const services = [
       "Helping you find and secure the perfect home that fits your lifestyle, budget, and long-term goals.",
     id: "owner-occupier",
     icon: <Home className="w-8 h-8" />,
-    gradient: "from-blue-500/10 to-primary/10",
-    iconBg: "from-blue-500/20 to-blue-600/20",
-    accentColor: "text-blue-600 dark:text-blue-400",
   },
   {
     title: "Residential Investments",
@@ -30,9 +27,6 @@ const services = [
       "Expert guidance to build a high-performing residential property portfolio for long-term growth.",
     id: "residential-investments",
     icon: <Building className="w-8 h-8" />,
-    gradient: "from-emerald-500/10 to-primary/10",
-    iconBg: "from-emerald-500/20 to-emerald-600/20",
-    accentColor: "text-emerald-600 dark:text-emerald-400",
   },
   {
     title: "Commercial Investments",
@@ -40,9 +34,6 @@ const services = [
       "Unlock opportunities in the commercial property market with our tailored acquisition strategies.",
     id: "commercial-investments",
     icon: <Briefcase className="w-8 h-8" />,
-    gradient: "from-purple-500/10 to-primary/10",
-    iconBg: "from-purple-500/20 to-purple-600/20",
-    accentColor: "text-purple-600 dark:text-purple-400",
   },
   {
     title: "Self-Managed Super Fund (SMSF)",
@@ -50,9 +41,6 @@ const services = [
       "Leverage your superannuation to invest in property and grow your retirement wealth securely.",
     id: "smsf",
     icon: <PiggyBank className="w-8 h-8" />,
-    gradient: "from-amber-500/10 to-primary/10",
-    iconBg: "from-amber-500/20 to-amber-600/20",
-    accentColor: "text-amber-600 dark:text-amber-500",
   },
   {
     title: "Development Opportunities",
@@ -60,9 +48,6 @@ const services = [
       "Identify and secure profitable land and development sites with strong capital growth potential.",
     id: "development-opportunities",
     icon: <Hammer className="w-8 h-8" />,
-    gradient: "from-orange-500/10 to-primary/10",
-    iconBg: "from-orange-500/20 to-orange-600/20",
-    accentColor: "text-orange-600 dark:text-orange-400",
   },
   {
     title: "Portfolio Management",
@@ -70,9 +55,6 @@ const services = [
       "Ongoing support to optimise, expand, and maintain the value of your property investments.",
     id: "portfolio-management",
     icon: <TrendingUp className="w-8 h-8" />,
-    gradient: "from-rose-500/10 to-primary/10",
-    iconBg: "from-rose-500/20 to-rose-600/20",
-    accentColor: "text-rose-600 dark:text-rose-400",
   },
 ];
 
@@ -114,24 +96,24 @@ export default function ServicesOverview() {
             >
               {/* Service Card */}
               <div
-                className={`relative h-full bg-gradient-to-br ${service.gradient} border border-gray-200 dark:border-gray-700/50 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out bg-white/90 dark:bg-zinc-900/90 flex flex-col hover:shadow-xl hover:-translate-y-2`}
+                className="relative h-full bg-amber-900/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
                 style={{ willChange: "transform" }}
               >
                 {/* Icon Section */}
                 <div className="relative mb-6">
-                  <div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.iconBg} flex items-center justify-center shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-110`}
-                  >
-                    <div className={service.accentColor}>{service.icon}</div>
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-110">
+                    <div className="text-primary">{service.icon}</div>
                   </div>
                 </div>
 
                 {/* Content Section */}
                 <div className="flex-grow space-y-4">
-                  <h3 className="text-xl lg:text-2xl font-semibold font-display text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
+                  {/* Transparent White Title */}
+                  <h3 className="text-xl lg:text-2xl font-semibold font-display text-white/90 transition-colors duration-300 group-hover:text-white">
                     {service.title}
                   </h3>
-                  <p className="text-sm lg:text-base text-muted-foreground dark:text-gray-300 font-body leading-relaxed">
+                  {/* Beige Description Text */}
+                  <p className="text-sm lg:text-base text-[#f5deb3] font-body leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -164,7 +146,7 @@ export default function ServicesOverview() {
                 </div>
 
                 {/* Bottom Accent */}
-                <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
+                <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
               </div>
             </motion.div>
           ))}

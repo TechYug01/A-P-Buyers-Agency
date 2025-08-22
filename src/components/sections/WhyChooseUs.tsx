@@ -17,57 +17,49 @@ const features = [
     title: "Nationwide Service",
     description:
       "We operate in all 6 Australian states to help you find opportunities everywhere.",
-    icon: <Globe className="w-6 h-6 text-primary" />,
-    gradient: "from-blue-500/10 to-primary/10",
+    icon: <Globe className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "25+ Years Experience",
     description:
       "Decades of combined experience across residential, commercial, and development projects.",
-    icon: <Briefcase className="w-6 h-6 text-primary" />,
-    gradient: "from-emerald-500/10 to-primary/10",
+    icon: <Briefcase className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "Multi-Million Dollar Deals",
     description:
       "We've handled high-value transactions and guided clients through strategic investments.",
-    icon: <Building2 className="w-6 h-6 text-primary" />,
-    gradient: "from-amber-500/10 to-primary/10",
+    icon: <Building2 className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "Deep Market Insight",
     description:
       "We provide comprehensive market analysis to guide every decision you make.",
-    icon: <LineChart className="w-6 h-6 text-primary" />,
-    gradient: "from-purple-500/10 to-primary/10",
+    icon: <LineChart className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "National Network",
     description:
       "100+ agents, brokers, and solicitors on-call to support our clients nationwide.",
-    icon: <Users className="w-6 h-6 text-primary" />,
-    gradient: "from-rose-500/10 to-primary/10",
+    icon: <Users className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "Due Diligence Experts",
     description:
       "We research every property thoroughly and negotiate with precision.",
-    icon: <SearchCheck className="w-6 h-6 text-primary" />,
-    gradient: "from-teal-500/10 to-primary/10",
+    icon: <SearchCheck className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "Ethical & Transparent",
     description:
       "Authenticity, transparency, and client-first service is our promise.",
-    icon: <ShieldCheck className="w-6 h-6 text-primary" />,
-    gradient: "from-indigo-500/10 to-primary/10",
+    icon: <ShieldCheck className="w-6 h-6 text-[#ede7dd]" />,
   },
   {
     title: "Client Empowerment",
     description:
       "We educate and empower you to make smart decisions — every step of the way.",
-    icon: <Handshake className="w-6 h-6 text-primary" />,
-    gradient: "from-orange-500/10 to-primary/10",
+    icon: <Handshake className="w-6 h-6 text-[#ede7dd]" />,
   },
 ];
 
@@ -116,30 +108,30 @@ export default function WhyChooseUs() {
               viewport={{ once: true }}
               className="group relative"
             >
-              {/* Card */}
               <div
-                className={`bg-gradient-to-br ${feature.gradient} border border-white/30 dark:border-gray-700/50 rounded-2xl p-6 h-full shadow-lg transition-all duration-300 ease-out bg-white/90 dark:bg-zinc-900/90 hover:shadow-xl hover:-translate-y-2 hover:border-white/50`}
+                className="bg-amber-900/30 border border-amber-900/40 rounded-2xl p-6 h-full shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
                 style={{ willChange: "transform" }}
               >
                 {/* Icon Container */}
                 <div className="mb-6 relative">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center transition-all duration-300 group-hover:from-primary/30 group-hover:to-primary/20 group-hover:scale-110">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#ede7dd]/20 to-[#ede7dd]/10 flex items-center justify-center transition-all duration-300 group-hover:from-[#ede7dd]/30 group-hover:to-[#ede7dd]/20 group-hover:scale-110">
                     {feature.icon}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="space-y-3">
-                  <h3 className="text-lg lg:text-xl font-semibold text-dark dark:text-white font-display transition-colors duration-300 group-hover:text-primary">
+                  {/* Title */}
+                  <h3 className="text-lg lg:text-xl font-semibold text-white/90 font-display transition-colors duration-300 group-hover:text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-sm lg:text-base text-muted-foreground font-body leading-relaxed">
+                  <p className="text-sm lg:text-base text-[#f5deb3] font-body leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
 
-                {/* bottom accent */}
-                <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                {/* Bottom accent */}
+                <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
               </div>
             </motion.div>
           ))}

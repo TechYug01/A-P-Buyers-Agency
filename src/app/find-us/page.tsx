@@ -1,5 +1,6 @@
 "use client";
 
+import { ContactModal } from "@/components/FloatingContacts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,6 +23,7 @@ import { toast } from "sonner";
 
 export default function FindUsPage() {
   const [loading, setLoading] = useState(false);
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -212,23 +214,37 @@ export default function FindUsPage() {
                 { icon: Instagram, url: socialLinks[1].url, name: "Instagram" },
                 { icon: Linkedin, url: socialLinks[2].url, name: "LinkedIn" },
                 { icon: MessageCircle, url: whatsApp, name: "WhatsApp" },
-                { icon: Phone, url: `tel:${contacts[0].value}`, name: "Phone" },
               ].map((social) => (
                 <Link key={social.name} href={social.url} target="_blank">
                   <Button
                     variant="outline"
                     size="icon"
-                    className="transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg hover:border-primary/50 hover:bg-primary/5"
+                    className="transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg hover:border-primary/50 hover:bg-primary/5 cursor-pointer"
                     style={{ willChange: "transform" }}
                   >
                     <social.icon className="w-5 h-5" />
                   </Button>
                 </Link>
               ))}
+              <Button
+                variant="outline"
+                onClick={() => setPhoneModalOpen(true)}
+                size="icon"
+                className="transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg hover:border-primary/50 hover:bg-primary/5 cursor-pointer"
+                style={{ willChange: "transform" }}
+              >
+                <Phone className="w-5 h-5" />
+              </Button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      <ContactModal
+        isOpen={phoneModalOpen}
+        onClose={() => setPhoneModalOpen(false)}
+        type="phone"
+      />
     </>
   );
 }
