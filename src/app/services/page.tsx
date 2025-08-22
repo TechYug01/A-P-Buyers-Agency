@@ -94,7 +94,7 @@ export default function OurServicesPage() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-dark dark:text-white mb-6">
-              Our <span className="text-primary">Services</span>
+              Our <span className="text-primary">Expertise</span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground dark:text-gray-300 font-body max-w-4xl mx-auto leading-relaxed">
               Whether you&apos;re a first-time buyer, seasoned investor, or
@@ -120,7 +120,7 @@ export default function OurServicesPage() {
               >
                 {/* Service Card */}
                 <div
-                  className="relative h-full bg-[#696564] border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/80 hover:border-amber-900/60"
+                  className="relative h-full bg-[#E8DAD1]/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-[#E8DAD1]/40 hover:border-amber-900/60 dark:bg-black"
                   style={{ willChange: "transform" }}
                 >
                   {/* Icon Section */}
@@ -133,11 +133,11 @@ export default function OurServicesPage() {
                   {/* Content Section */}
                   <div className="flex-grow space-y-6">
                     <div>
-                      <h2 className="text-xl lg:text-2xl font-semibold font-display text-white/90 transition-colors duration-300 group-hover:text-white mb-3">
+                      <h2 className="text-xl lg:text-2xl font-semibold font-display text-black/90 transition-colors duration-300 group-hover:text-black mb-3 dark:text-primary">
                         {service.title}
                       </h2>
                       {/* Description */}
-                      <p className="text-sm lg:text-base text-white font-body leading-relaxed">
+                      <p className="text-sm lg:text-base text-black dark:text-primary font-body leading-relaxed">
                         {service.description}
                       </p>
                     </div>
@@ -146,8 +146,10 @@ export default function OurServicesPage() {
                     <div className="space-y-2">
                       {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-white flex-shrink-0" />
-                          <span className="text-sm text-white">{feature}</span>
+                          <CheckCircle className="w-4 h-4 text-black flex-shrink-0 dark:text-white" />
+                          <span className="text-sm text-black dark:text-white">
+                            {feature}
+                          </span>
                         </div>
                       ))}
                     </div>

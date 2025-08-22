@@ -147,7 +147,7 @@ export default function StatsSection() {
               >
                 {/* Stat Card */}
                 <div
-                  className="relative p-8 rounded-3xl bg-amber-900/30 border border-amber-900/40 shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
+                  className="relative p-8 rounded-3xl bg-[#E8DAD1]/30 dark:bg-black border border-amber-900/40 shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-[#E8DAD1]/40 hover:border-amber-900/60"
                   style={{ willChange: "transform" }}
                 >
                   {/* Icon Container */}
@@ -160,7 +160,7 @@ export default function StatsSection() {
                   {/* Stats Display */}
                   <div className="space-y-3">
                     <div className="relative">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-white/90 group-hover:text-white">
+                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-black/90 group-hover:text-black dark:text-primary">
                         {stat.value}
                         <span className="text-primary max-md:text-[#ede7dd] text-3xl sm:text-4xl">
                           {stat.suffix}
@@ -169,7 +169,7 @@ export default function StatsSection() {
                     </div>
 
                     {/* Beige Label Text */}
-                    <p className="text-sm sm:text-base font-medium text-white leading-relaxed">
+                    <p className="text-sm sm:text-base font-medium text-black leading-relaxed dark:text-primary">
                       {stat.label}
                     </p>
                   </div>

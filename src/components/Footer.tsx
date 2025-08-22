@@ -69,7 +69,7 @@ export default function Footer() {
               <Sparkles className="w-4 h-4 text-primary" />
               Quick Links
             </h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-2 text-sm">
               {[
                 { name: "About Us", href: "/about" },
                 { name: "Our Expertise", href: "/services" },
@@ -81,7 +81,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-muted-foreground dark:text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1"
+                    className="group flex items-center gap-2 text-muted-foreground dark:text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 font-san"
                   >
                     <div className="w-1 h-1 bg-primary/50 rounded-full group-hover:bg-primary transition-colors" />
                     <span>{link.name}</span>

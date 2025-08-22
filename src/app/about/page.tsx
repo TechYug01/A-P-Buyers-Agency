@@ -121,10 +121,10 @@ export default function AboutUsPage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="bg-black/40 border border-white/30 p-8 rounded-2xl shadow-lg order-1 lg:order-2"
               >
-                <h2 className="text-3xl font-display font-bold text-[#ede7dd] mb-6">
+                <h2 className="text-3xl max-md:text-xl font-display font-bold text-[#ede7dd] mb-6 max-md:mb-1">
                   About A&P Buyers Agency
                 </h2>
-                <p className="text-lg text-[#ede7dd] font-body leading-relaxed whitespace-pre-line text-justify">
+                <p className="md:text-lg text-sm text-[#ede7dd] font-body leading-relaxed whitespace-pre-line text-justify">
                   {aboutIntro}
                 </p>
               </motion.div>
@@ -163,7 +163,7 @@ export default function AboutUsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   viewport={{ once: true }}
-                  className="bg-amber-900/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
+                  className="bg-[#E8DAD1]/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-[#E8DAD1]/40 hover:border-amber-900/60 dark:bg-black"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg">
@@ -204,7 +204,7 @@ export default function AboutUsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                   viewport={{ once: true }}
-                  className="bg-amber-900/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
+                  className="bg-[#E8DAD1]/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-[#E8DAD1]/40 hover:border-amber-900/60 dark:bg-black"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg">

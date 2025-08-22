@@ -136,13 +136,13 @@ export default function TestimonialCarousel() {
                       whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                       className={clsx(
-                        "bg-amber-900/20 border border-amber-900/30 dark:bg-zinc-900 p-8 rounded-2xl shadow-lg text-left h-full flex flex-col justify-between max-[1050px]:w-md max-[970px]:w-sm max-[870px]:w-[350px] max-[767px]:w-full",
+                        "bg-[#E8DAD1]/30 border border-amber-900/30 dark:bg-zinc-900 p-8 rounded-2xl shadow-lg text-left h-full flex flex-col justify-between max-[1050px]:w-md max-[970px]:w-sm max-[870px]:w-[350px] max-[767px]:w-full",
                         "transition-colors duration-200 cursor-pointer text-justify"
                       )}
                     >
                       {/* Description */}
                       <div className="mb-4 space-y-3">
-                        <div className="text-base font-body text-muted-foreground dark:text-zinc-300 leading-relaxed">
+                        <div className="text-base font-body text-muted-foreground dark:text-zinc-300 leading-relaxed text-justify">
                           {visibleText}
                         </div>
 

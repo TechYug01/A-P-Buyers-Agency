@@ -3,6 +3,7 @@ import ServicesSection from "@/components/sections/Services";
 import SponsorshipsEventsOverview from "@/components/sections/SponsorshipsEvents";
 import StatsSection from "@/components/sections/Stats";
 import TestimonialCarousel from "@/components/sections/Testimonials";
+import WebinarsAndNewsletters from "@/components/sections/WebinarsAndNewletters";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import SEO from "@/lib/seo";
 
@@ -21,6 +22,7 @@ export default function Home() {
       <TestimonialCarousel />
       <ServicesSection />
       <SponsorshipsEventsOverview />
+      <WebinarsAndNewsletters />
     </>
   );
 }

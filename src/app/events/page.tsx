@@ -29,6 +29,19 @@ import { toast } from "sonner";
 
 export default function EventsCommunityPage() {
   const [loading, setLoading] = useState(false);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    title: "",
+    content: "",
+  });
+
+  const openNewsletterModal = (title: string, content: string) => {
+    setModalState({ isOpen: true, title, content });
+  };
+
+  const closeModal = () => {
+    setModalState({ ...modalState, isOpen: false });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -340,23 +353,26 @@ export default function EventsCommunityPage() {
                 <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow mb-6">
                   {nl.summary}
                 </p>
-                <NewsletterModal
-                  title={nl.title}
-                  content={nl.content}
-                  trigger={
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="mt-6 cursor-pointer w-full"
-                    >
-                      Read More
-                    </Button>
-                  }
-                />
+                <Button
+                  variant="outline"
+                  onClick={() => openNewsletterModal(nl.title, nl.content)}
+                  size="sm"
+                  className="mt-6 cursor-pointer w-full"
+                >
+                  Read More
+                </Button>
               </motion.div>
             ))}
           </div>
         </div>
+
+        {modalState.isOpen && (
+          <NewsletterModal
+            title={modalState.title}
+            content={modalState.content}
+            onClose={closeModal}
+          />
+        )}
       </section>
 
       {/* Partner Form Section */}

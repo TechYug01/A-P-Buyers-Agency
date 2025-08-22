@@ -109,7 +109,7 @@ export default function WhyChooseUs() {
               className="group relative"
             >
               <div
-                className="bg-amber-900/30 border border-amber-900/40 rounded-2xl p-6 h-full shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
+                className="bg-[#6B6259]/30 border border-amber-900/40 rounded-2xl p-6 h-full shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-[#6B6259]/40 hover:border-amber-900/60"
                 style={{ willChange: "transform" }}
               >
                 {/* Icon Container */}

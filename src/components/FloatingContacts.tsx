@@ -80,12 +80,12 @@ export function ContactModal({
                     href={
                       isPhone ? `tel:${person.phone}` : `mailto:${person.email}`
                     }
-                    className="flex items-center gap-4 p-4 rounded-xl bg-amber-900/20 hover:bg-amber-900/30 border border-amber-900/30 hover:border-amber-900/50 transition-all duration-200 group w-full break-all"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-[#6B6259] hover:bg-[#6B6259]/90 border border-[#6B6259]/30 hover:border-[#6B6259]/50 transition-all duration-200 group w-full break-all"
                     onClick={onClose}
                   >
                     {/* Avatar */}
                     <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <User className="w-7 h-7 text-primary" />
+                      <User className="w-7 h-7 text-white" />
                     </div>
 
                     {/* Contact Info */}
@@ -93,7 +93,7 @@ export function ContactModal({
                       <h4 className="font-semibold text-white/90 group-hover:text-white mb-1">
                         {person.name}
                       </h4>
-                      <p className="text-sm font-medium text-primary">
+                      <p className="text-sm font-medium text-white">
                         {isPhone ? person.phone : person.email}
                       </p>
                     </div>
@@ -103,14 +103,14 @@ export function ContactModal({
                       <div
                         className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
                           isPhone
-                            ? "bg-green-500/20 group-hover:bg-green-500/30"
-                            : "bg-blue-500/20 group-hover:bg-blue-500/30"
+                            ? "bg-[#f5f1e9] group-hover:bg-[#f5f1e9]/30"
+                            : "bg-[#f5f1e9] group-hover:bg-[#f5f1e9]/30"
                         }`}
                       >
                         {isPhone ? (
-                          <Phone className="w-5 h-5 text-green-400" />
+                          <Phone className="w-5 h-5 text-primary dark:text-black" />
                         ) : (
-                          <Mail className="w-5 h-5 text-blue-400" />
+                          <Mail className="w-5 h-5 text-primary dark:text-black" />
                         )}
                       </div>
                     </div>
@@ -150,8 +150,8 @@ export default function FloatingContacts() {
       label: "Call Us",
       sublabel: "Available 9AM - 6PM",
       onClick: () => setPhoneModalOpen(true),
-      gradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
-      hoverGradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      gradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
+      hoverGradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
       glowColor: "shadow-[#6e1e24]/25",
       iconBg: "bg-[#6e1e24]/20",
     },
@@ -161,8 +161,8 @@ export default function FloatingContacts() {
       label: "Email Us",
       sublabel: "Reach out to us through Email",
       onClick: () => setEmailModalOpen(true),
-      gradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
-      hoverGradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      gradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
+      hoverGradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
       glowColor: "shadow-[#6e1e24]/25",
       iconBg: "bg-[#6e1e24]/20",
     },
@@ -172,11 +172,10 @@ export default function FloatingContacts() {
       label: "Join WhatsApp Group",
       sublabel: "Get exclusive property alerts",
       href: "https://chat.whatsapp.com/G5cbBBSLohV4zeNVwD2LbR",
-      gradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
-      hoverGradient: "from-[#6e1e24]/30 via-[#6e1e24]/50 to-[#6e1e24]",
+      gradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
+      hoverGradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
       glowColor: "shadow-[#6e1e24]/25",
       iconBg: "bg-[#6e1e24]/20",
-      badge: <Users className="w-3 h-3" />,
     },
   ];
 
@@ -200,7 +199,7 @@ export default function FloatingContacts() {
                   onClick={() => setHovered(null)}
                   onMouseEnter={() => !isMobile && setHovered(contact.id)}
                   onMouseLeave={() => !isMobile && setHovered(null)}
-                  className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden backdrop-blur-sm border border-white/20 ${
+                  className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden backdrop-blur-sm ${
                     contact.glowColor
                   } ${
                     isHovered && !isMobile
@@ -218,19 +217,13 @@ export default function FloatingContacts() {
 
                   <div className="relative flex items-center justify-center min-w-[3.5rem] h-14">
                     <div
-                      className={`w-10 h-10 rounded-xl ${contact.iconBg} backdrop-blur-sm flex items-center justify-center transition-all duration-200 group-hover:scale-110`}
+                      className={`w-10 h-10 rounded-xl ${contact.iconBg}  flex items-center justify-center transition-all duration-200 group-hover:scale-110`}
                     >
                       <div className="text-white relative">
                         {contact.icon}
                         <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-ping" />
                       </div>
                     </div>
-
-                    {contact.badge && (
-                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-white animate-bounce">
-                        {contact.badge}
-                      </div>
-                    )}
                   </div>
 
                   <div
@@ -240,10 +233,10 @@ export default function FloatingContacts() {
                         : "opacity-0 -translate-x-4"
                     }`}
                   >
-                    <span className="text-white text-sm font-semibold whitespace-nowrap">
+                    <span className="text-white text-sm font-semibold whitespace-nowrap font-display">
                       {contact.label}
                     </span>
-                    <span className="text-white/80 text-xs whitespace-nowrap">
+                    <span className="text-white/80 text-xs whitespace-nowrap font-san">
                       {contact.sublabel}
                     </span>
                   </div>
@@ -257,27 +250,13 @@ export default function FloatingContacts() {
                   >
                     <div className="w-2 h-2 border-r-2 border-b-2 border-white/60 rotate-[-45deg]" />
                   </div>
-
-                  <div className="absolute inset-0 pointer-events-none">
-                    {[...Array(3)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
-                        style={{
-                          top: `${20 + i * 15}%`,
-                          right: `${10 + i * 5}%`,
-                          animationDuration: "2s",
-                        }}
-                      />
-                    ))}
-                  </div>
                 </Link>
               ) : (
                 <button
                   onClick={contact.onClick}
                   onMouseEnter={() => !isMobile && setHovered(contact.id)}
                   onMouseLeave={() => !isMobile && setHovered(null)}
-                  className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden backdrop-blur-sm border border-white/20 ${
+                  className={`group relative flex items-center rounded-2xl shadow-xl transition-all duration-200 ease-out overflow-hidden ${
                     contact.glowColor
                   } ${
                     isHovered && !isMobile
@@ -308,10 +287,10 @@ export default function FloatingContacts() {
                         : "opacity-0 -translate-x-4"
                     }`}
                   >
-                    <span className="text-white text-sm font-semibold whitespace-nowrap">
+                    <span className="text-white text-sm font-semibold whitespace-nowrap font-display">
                       {contact.label}
                     </span>
-                    <span className="text-white/80 text-xs whitespace-nowrap">
+                    <span className="text-white/80 text-xs whitespace-nowrap font-san">
                       {contact.sublabel}
                     </span>
                   </div>
@@ -324,20 +303,6 @@ export default function FloatingContacts() {
                     }`}
                   >
                     <div className="w-2 h-2 border-r-2 border-b-2 border-white/60 rotate-[-45deg]" />
-                  </div>
-
-                  <div className="absolute inset-0 pointer-events-none">
-                    {[...Array(3)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
-                        style={{
-                          top: `${20 + i * 15}%`,
-                          right: `${10 + i * 5}%`,
-                          animationDuration: "2s",
-                        }}
-                      />
-                    ))}
                   </div>
                 </button>
               )}

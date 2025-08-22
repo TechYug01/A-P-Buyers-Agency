@@ -96,7 +96,7 @@ export default function ServicesOverview() {
             >
               {/* Service Card */}
               <div
-                className="relative h-full bg-amber-900/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
+                className="relative h-full bg-[#E8DAD1]/30 dark:bg-black border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-[#E8DAD1]/40 hover:border-amber-900/60"
                 style={{ willChange: "transform" }}
               >
                 {/* Icon Section */}
@@ -109,11 +109,11 @@ export default function ServicesOverview() {
                 {/* Content Section */}
                 <div className="flex-grow space-y-4">
                   {/* Transparent White Title */}
-                  <h3 className="text-xl lg:text-2xl font-semibold font-display text-white/90 transition-colors duration-300 group-hover:text-white">
+                  <h3 className="text-xl lg:text-2xl font-semibold font-display text-black/90 transition-colors duration-300 group-hover:text-black dark:text-primary">
                     {service.title}
                   </h3>
                   {/* Beige Description Text */}
-                  <p className="text-sm lg:text-base text-[#f5deb3] font-body leading-relaxed">
+                  <p className="text-sm lg:text-base text-black font-body leading-relaxed dark:text-primary">
                     {service.description}
                   </p>
                 </div>
