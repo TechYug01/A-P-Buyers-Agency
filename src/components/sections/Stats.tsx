@@ -36,9 +36,9 @@ export default function StatsSection() {
   const inView = useInView(ref, { once: true });
 
   const weeks = useCounter(2, inView, 1500);
-  const yieldPercent = useCounter(6, inView, 1500);
-  const hotspots = useCounter(35, inView, 1500);
-  const offMarket = useCounter(80, inView, 1500);
+  const yieldPercent = useCounter(6, inView, 2000);
+  const hotspots = useCounter(35, inView, 2500);
+  const offMarket = useCounter(80, inView, 3000);
 
   const stats = [
     {
