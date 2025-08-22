@@ -68,7 +68,7 @@ export function ContactModal({
                 {isPhone ? "Call Us" : "Email Us"}
               </h3>
               <p className="text-muted-foreground dark:text-gray-300">
-                Choose who you'd like to {isPhone ? "call" : "email"}
+                Choose who you&apos;d like to {isPhone ? "call" : "email"}
               </p>
             </div>
 
