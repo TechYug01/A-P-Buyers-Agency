@@ -80,7 +80,7 @@ export function ContactModal({
                     href={
                       isPhone ? `tel:${person.phone}` : `mailto:${person.email}`
                     }
-                    className="flex items-center gap-4 p-4 rounded-xl bg-amber-900/20 hover:bg-amber-900/30 border border-amber-900/30 hover:border-amber-900/50 transition-all duration-200 group w-full"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-amber-900/20 hover:bg-amber-900/30 border border-amber-900/30 hover:border-amber-900/50 transition-all duration-200 group w-full break-all"
                     onClick={onClose}
                   >
                     {/* Avatar */}

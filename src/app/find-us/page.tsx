@@ -4,7 +4,7 @@ import { ContactModal } from "@/components/FloatingContacts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { contacts, socialLinks, whatsApp } from "@/lib/contactData";
+import { socialLinks, whatsApp } from "@/lib/contactData";
 import SEO from "@/lib/seo";
 import { motion } from "framer-motion";
 import {
