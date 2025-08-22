@@ -279,7 +279,7 @@ export default function Footer() {
                       You may request access, correction, or deletion of your
                       personal data by contacting us directly at{" "}
                       <a
-                        href={`mailto:${contacts[0].value}`}
+                        href={`tel:${contacts[0].value}`}
                         className="text-primary hover:underline"
                       >
                         {contacts[0].value}

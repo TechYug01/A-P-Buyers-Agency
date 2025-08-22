@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { whatsApp } from "@/lib/contactData";
 import { AnimatePresence, motion } from "framer-motion";
 import { Facebook, Mail, MessageCircle, X } from "lucide-react";
 import { useEffect } from "react";
@@ -193,7 +194,7 @@ export default function NewsletterModal({
                     public:
                   </p>
                   <a
-                    href="https://chat.whatsapp.com/G5cbBBSLohV4zeNVwD2LbR"
+                    href={whatsApp}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="ml-7 inline-block text-primary underline underline-offset-4 hover:no-underline transition-colors"

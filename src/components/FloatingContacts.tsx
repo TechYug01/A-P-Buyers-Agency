@@ -1,7 +1,8 @@
 "use client";
 
+import { contacts, whatsApp } from "@/lib/contactData";
 import { AnimatePresence, motion } from "framer-motion";
-import { Mail, MessageCircle, Phone, User, Users, X } from "lucide-react";
+import { Mail, MessageCircle, Phone, User, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -9,13 +10,13 @@ import { useEffect, useState } from "react";
 const contactInfo = [
   {
     name: "Anita",
-    phone: "61 423 512 669",
-    email: "anita@apbuyersagency.com.au",
+    phone: contacts[0].value,
+    email: contacts[2].value,
   },
   {
     name: "Pratiksha",
-    phone: "0412 078 039",
-    email: "pratiksha@apbuyersagency.com.au",
+    phone: contacts[1].value,
+    email: contacts[3].value,
   },
 ];
 
@@ -171,7 +172,7 @@ export default function FloatingContacts() {
       icon: <MessageCircle size={20} />,
       label: "Join WhatsApp Group",
       sublabel: "Get exclusive property alerts",
-      href: "https://chat.whatsapp.com/G5cbBBSLohV4zeNVwD2LbR",
+      href: whatsApp,
       gradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
       hoverGradient: "from-[#6e1e24]/90 via-[#6e1e24]/95 to-[#6e1e24]",
       glowColor: "shadow-[#6e1e24]/25",
