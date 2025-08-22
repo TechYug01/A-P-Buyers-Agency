@@ -3,8 +3,7 @@
 import SEO from "@/lib/seo";
 import { testimonials } from "@/lib/testimonialsData";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 const categories = [
   "All",
@@ -15,6 +14,86 @@ const categories = [
   "Development Opportunities",
   "Portfolio Management",
 ];
+
+const StarRating = ({
+  rating,
+  size = 18,
+}: {
+  rating: number;
+  size?: number;
+}) => {
+  const stars = [];
+
+  for (let i = 0; i < 5; i++) {
+    const starValue = i + 1;
+    let starType: "full" | "half" | "empty" = "empty";
+
+    if (rating >= starValue) {
+      starType = "full";
+    } else if (rating >= starValue - 0.5) {
+      starType = "half";
+    }
+
+    stars.push(<CustomStar key={i} type={starType} size={size} />);
+  }
+
+  return (
+    <div
+      className="flex gap-1 transition-transform duration-200 hover:scale-105"
+      role="img"
+      aria-label={`${rating} star rating`}
+    >
+      {stars}
+    </div>
+  );
+};
+
+const CustomStar = ({
+  type,
+  size,
+}: {
+  type: "full" | "half" | "empty";
+  size: number;
+}) => {
+  const starId = useId();
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className="text-primary dark:text-accent"
+    >
+      <defs>
+        {type === "half" && (
+          <linearGradient id={starId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop
+              offset="50%"
+              style={{ stopColor: "currentColor", stopOpacity: 1 }}
+            />
+            <stop
+              offset="50%"
+              style={{ stopColor: "transparent", stopOpacity: 0 }}
+            />
+          </linearGradient>
+        )}
+      </defs>
+      <path
+        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+        fill={
+          type === "full"
+            ? "currentColor"
+            : type === "half"
+            ? `url(#${starId})`
+            : "transparent"
+        }
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
 
 export default function TestimonialsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -31,6 +110,7 @@ export default function TestimonialsPage() {
         description="Hear from our clients about their experiences with A&P Buyer's Agency."
         url="https://www.apbuyersagency.com.au/testimonials"
       />
+
       <section className="bg-light dark:bg-dark transition-colors duration-300 min-h-screen py-20 mt-15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Title */}
@@ -76,12 +156,7 @@ export default function TestimonialsPage() {
                 className="bg-white dark:bg-zinc-900 border border-border rounded-2xl p-6 shadow-md hover:shadow-lg transition flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  {/* Rating */}
-                  <div className="flex gap-1 text-primary dark:text-accent">
-                    {[...Array(t.rating)].map((_, idx) => (
-                      <Star key={idx} size={18} fill="currentColor" />
-                    ))}
-                  </div>
+                  <StarRating rating={t.rating} size={18} />
 
                   {/* Description */}
                   <p className="text-muted-foreground dark:text-gray-300 font-body leading-relaxed whitespace-pre-line text-sm">

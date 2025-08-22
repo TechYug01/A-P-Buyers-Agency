@@ -4,9 +4,84 @@ import { testimonials } from "@/lib/testimonialsData";
 import clsx from "clsx";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+const StarRating = ({
+  rating,
+  size = 16,
+}: {
+  rating: number;
+  size?: number;
+}) => {
+  const stars = [];
+
+  for (let i = 0; i < 5; i++) {
+    const starValue = i + 1;
+    let starType: "full" | "half" | "empty" = "empty";
+
+    if (rating >= starValue) {
+      starType = "full";
+    } else if (rating >= starValue - 0.5) {
+      starType = "half";
+    }
+
+    stars.push(<CustomStar key={i} type={starType} size={size} />);
+  }
+
+  return (
+    <div className="flex" role="img" aria-label={`${rating} star rating`}>
+      {stars}
+    </div>
+  );
+};
+
+const CustomStar = ({
+  type,
+  size,
+}: {
+  type: "full" | "half" | "empty";
+  size: number;
+}) => {
+  const starId = `star-${Math.random().toString(36).substr(2, 9)}`;
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className="text-primary"
+    >
+      <defs>
+        {type === "half" && (
+          <linearGradient id={starId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop
+              offset="50%"
+              style={{ stopColor: "currentColor", stopOpacity: 1 }}
+            />
+            <stop
+              offset="50%"
+              style={{ stopColor: "transparent", stopOpacity: 0 }}
+            />
+          </linearGradient>
+        )}
+      </defs>
+      <path
+        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+        fill={
+          type === "full"
+            ? "currentColor"
+            : type === "half"
+            ? `url(#${starId})`
+            : "transparent"
+        }
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
 
 export default function TestimonialCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
@@ -181,17 +256,8 @@ export default function TestimonialCarousel() {
                               {testimonial.category}
                             </div>
                           </div>
-                          <div
-                            className="flex text-yellow-400"
-                            role="img"
-                            aria-label={`${testimonial.rating} star rating`}
-                          >
-                            {Array.from({ length: testimonial.rating }).map(
-                              (_, i) => (
-                                <Star key={i} size={16} fill="currentColor" />
-                              )
-                            )}
-                          </div>
+
+                          <StarRating rating={testimonial.rating} size={16} />
                         </div>
                       </div>
                     </motion.div>
