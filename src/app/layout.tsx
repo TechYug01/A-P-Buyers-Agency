@@ -57,8 +57,9 @@ export default function RootLayout({
       <body className="font-body antialiased transition-colors duration-200">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
           <Header />
           {children}

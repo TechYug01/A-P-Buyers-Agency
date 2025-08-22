@@ -22,7 +22,7 @@ export const webinars = [
     title: "Renter to Investor - Fast Track Your Wealth in Growth suburbs",
     date: "10th Sept",
     time: "7:00 PM",
-    url: "https://example.com/webinar-signup",
+    url: "https://forms.office.com/r/LzQXhA0eeY",
     description:
       "Motivational and practical guide to escaping the rent trap and building a healthy property portfolio.",
   },
