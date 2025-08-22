@@ -45,28 +45,28 @@ export default function StatsSection() {
       icon: <Clock size={32} />,
       value: weeks,
       suffix: " Weeks",
-      label: "Average acquisition time",
+      label: "Average Acquisition Time",
       accentColor: "text-primary max-md:text-[#ede7dd]",
     },
     {
       icon: <TrendingUp size={32} />,
       value: yieldPercent,
       suffix: "%",
-      label: "Average net yield",
+      label: "Average Net Yield",
       accentColor: "text-primary max-md:text-[#ede7dd]",
     },
     {
       icon: <MapPin size={32} />,
       value: hotspots,
       suffix: "+",
-      label: "Hotspots analysed Monthly",
+      label: "Hotspots Analysed Monthly",
       accentColor: "text-primary max-md:text-[#ede7dd]",
     },
     {
       icon: <Building2 size={32} />,
       value: offMarket,
       suffix: "%",
-      label: "Properties acquired off-market",
+      label: "Properties Acquired Off-Market",
       accentColor: "text-primary max-md:text-[#ede7dd]",
     },
   ];
@@ -169,7 +169,7 @@ export default function StatsSection() {
                     </div>
 
                     {/* Beige Label Text */}
-                    <p className="text-sm sm:text-base font-medium text-[#f5deb3] leading-relaxed">
+                    <p className="text-sm sm:text-base font-medium text-white leading-relaxed">
                       {stat.label}
                     </p>
                   </div>

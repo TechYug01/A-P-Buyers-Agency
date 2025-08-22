@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     const response = await resend.emails.send({
       from: "A&P Buyers Agency <onboarding@resend.dev>",
-      to: ["anita@apbuyersagency.com.au", "Pratiksha@apbuyersagency.com.au"],
+      to: "ap@apbuyersagency.com.au",
       subject: "New Contact from Find Us Page",
       html: `
         <h2>New Contact</h2>

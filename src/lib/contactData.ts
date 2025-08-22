@@ -34,7 +34,7 @@ export const socialLinks = [
   {
     id: "instagram",
     title: "Instagram",
-    url: "https://www.instagram.com/apbuyersagency",
+    url: "https://www.instagram.com/anitakumar42",
   },
   {
     id: "linkedin",

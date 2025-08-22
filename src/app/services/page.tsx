@@ -120,7 +120,7 @@ export default function OurServicesPage() {
               >
                 {/* Service Card */}
                 <div
-                  className="relative h-full bg-amber-900/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
+                  className="relative h-full bg-[#696564] border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/80 hover:border-amber-900/60"
                   style={{ willChange: "transform" }}
                 >
                   {/* Icon Section */}
@@ -137,7 +137,7 @@ export default function OurServicesPage() {
                         {service.title}
                       </h2>
                       {/* Description */}
-                      <p className="text-sm lg:text-base text-[#f5deb3] font-body leading-relaxed">
+                      <p className="text-sm lg:text-base text-white font-body leading-relaxed">
                         {service.description}
                       </p>
                     </div>
@@ -146,10 +146,8 @@ export default function OurServicesPage() {
                     <div className="space-y-2">
                       {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                          <span className="text-sm text-[#f5deb3]">
-                            {feature}
-                          </span>
+                          <CheckCircle className="w-4 h-4 text-white flex-shrink-0" />
+                          <span className="text-sm text-white">{feature}</span>
                         </div>
                       ))}
                     </div>

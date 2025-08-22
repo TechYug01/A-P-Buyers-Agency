@@ -207,9 +207,9 @@ export default function AboutUsPage() {
                   className="bg-amber-900/30 border border-amber-900/40 rounded-3xl p-8 shadow-lg transition-all duration-300 ease-out flex flex-col hover:shadow-xl hover:-translate-y-2 hover:bg-amber-900/40 hover:border-amber-900/60"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-blue-500/10 rounded-2xl flex items-center justify-center shadow-lg">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg">
                       <svg
-                        className="w-6 h-6 text-blue-600"
+                        className="w-6 h-6 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
