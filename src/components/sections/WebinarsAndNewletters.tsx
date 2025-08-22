@@ -78,49 +78,52 @@ export default function WebinarsAndNewsletters() {
   return (
     <>
       {/* Webinars & Newsletters Section */}
-      <section className="relative py-20 bg-gradient-to-b from-white via-gray-50/30 to-white dark:from-black dark:via-zinc-900/30 dark:to-black transition-colors duration-300 overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+      <section className="relative py-12 md:py-20 bg-gradient-to-b from-white via-gray-50/30 to-white dark:from-black dark:via-zinc-900/30 dark:to-black transition-colors duration-300 overflow-hidden">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
             {/* Webinars */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="flex flex-col"
+              className="flex flex-col w-full"
               onMouseEnter={stopWebinarAutoplay}
               onMouseLeave={startWebinarAutoplay}
             >
               {/* Webinar Header */}
-              <div className="mb-8">
-                <h2 className="text-3xl sm:text-4xl font-display font-bold text-dark dark:text-white mb-4 text-center">
+              <div className="mb-6 md:mb-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-dark dark:text-white mb-4 text-center">
                   Upcoming <span className="text-primary">Webinars</span>
                 </h2>
               </div>
 
               {/* Webinars Carousel */}
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <div
-                  className="overflow-hidden h-[480px]"
+                  className="overflow-hidden h-[400px] sm:h-[450px] md:h-[480px] w-full"
                   ref={webinarEmblaRef}
                 >
                   <div className="flex h-full">
                     {webinars.map((webinar, idx) => (
-                      <div key={idx} className="flex-[0_0_100%] p-4 h-full">
+                      <div
+                        key={idx}
+                        className="flex-[0_0_100%] px-2 sm:px-3 md:px-4 h-full"
+                      >
                         <div
-                          className="h-full bg-[#E8DAD1]/30 border border-amber-900/30 rounded-3xl shadow-md transition-all duration-300 ease-out p-8 flex flex-col hover:shadow-lg hover:bg-[#E8DAD1]/40 dark:bg-black"
+                          className="h-full bg-[#E8DAD1]/30 border border-amber-900/30 rounded-2xl sm:rounded-3xl shadow-md transition-all duration-300 ease-out p-4 sm:p-6 md:p-8 flex flex-col hover:shadow-lg hover:bg-[#E8DAD1]/40 dark:bg-black w-full"
                           style={{ willChange: "transform" }}
                         >
                           {/* Header */}
-                          <div className="flex items-start justify-between mb-6">
-                            <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg">
-                              <Video className="w-8 h-8 text-primary" />
+                          <div className="flex items-start justify-between mb-4 sm:mb-6">
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                              <Video className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-primary" />
                             </div>
 
-                            <div className="text-right">
-                              <div className="flex items-center gap-2 text-sm text-primary font-medium mb-1">
+                            <div className="text-right ml-2">
+                              <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-primary font-medium mb-1">
                                 <Clock className="w-3 h-3" />
-                                {webinar.time}
+                                <span className="truncate">{webinar.time}</span>
                               </div>
                               <div className="text-xs dark:text-primary text-black/80">
                                 {webinar.date}
@@ -129,12 +132,12 @@ export default function WebinarsAndNewsletters() {
                           </div>
 
                           {/* Content */}
-                          <div className="flex-grow space-y-4">
-                            <h3 className="text-xl font-bold font-display text-black/90 dark:text-white/90">
+                          <div className="flex-grow space-y-3 sm:space-y-4">
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold font-display text-black/90 dark:text-white/90 leading-tight">
                               {webinar.title}
                             </h3>
 
-                            <p className="text-sm text-black/80 dark:text-primary font-body leading-relaxed">
+                            <p className="text-xs sm:text-sm text-black/80 dark:text-primary font-body leading-relaxed">
                               {webinar.description}
                             </p>
                           </div>
@@ -142,22 +145,19 @@ export default function WebinarsAndNewsletters() {
                           {/* Button */}
                           <Button
                             asChild
-                            size="lg"
-                            className="group/btn mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
+                            size="sm"
+                            className="group/btn mt-4 sm:mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full"
                           >
                             <Link
                               href={webinar.url}
                               target="_blank"
-                              className="flex items-center justify-center gap-2"
+                              className="flex items-center justify-center gap-2 text-sm"
                             >
-                              <Users className="w-4 h-4" />
+                              <Users className="w-4 h-4 flex-shrink-0" />
                               <span>Join Webinar</span>
-                              <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                              <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 flex-shrink-0" />
                             </Link>
                           </Button>
-
-                          {/* Bottom Accent */}
-                          <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
                         </div>
                       </div>
                     ))}
@@ -172,44 +172,47 @@ export default function WebinarsAndNewsletters() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="flex flex-col"
+              className="flex flex-col w-full"
               onMouseEnter={stopNewsletterAutoplay}
               onMouseLeave={startNewsletterAutoplay}
             >
               {/* Newsletter Header */}
-              <div className="mb-8">
-                <h2 className="text-3xl sm:text-4xl font-display font-bold text-dark dark:text-white mb-4 text-center">
+              <div className="mb-6 md:mb-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-dark dark:text-white mb-4 text-center">
                   Newsletters & <span className="text-primary">Insights</span>
                 </h2>
               </div>
 
               {/* Newsletters Carousel */}
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <div
-                  className="overflow-hidden h-[480px]"
+                  className="overflow-hidden h-[400px] sm:h-[450px] md:h-[480px] w-full"
                   ref={newsletterEmblaRef}
                 >
                   <div className="flex h-full">
                     {newsletters.map((nl, idx) => (
-                      <div key={idx} className="flex-[0_0_100%] p-4 h-full">
-                        <div className="bg-[#E8DAD1]/30 border border-amber-900/30 rounded-3xl shadow-md p-8 flex flex-col h-full hover:bg-[#E8DAD1]/40 hover:shadow-lg transition-all duration-300 dark:bg-black">
+                      <div
+                        key={idx}
+                        className="flex-[0_0_100%] px-2 sm:px-3 md:px-4 h-full"
+                      >
+                        <div className="bg-[#E8DAD1]/30 border border-amber-900/30 rounded-2xl sm:rounded-3xl shadow-md p-4 sm:p-6 md:p-8 flex flex-col h-full hover:bg-[#E8DAD1]/40 hover:shadow-lg transition-all duration-300 dark:bg-black w-full">
                           <div className="mb-2">
-                            <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-                              <Mail className="w-7 h-7 text-primary" />
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg mb-4">
+                              <Mail className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                             </div>
-                            <h3 className="text-xl font-semibold font-display text-black/90 dark:text-primary mb-4">
+                            <h3 className="text-base sm:text-lg md:text-xl font-semibold font-display text-black/90 dark:text-primary mb-3 sm:mb-4 leading-tight">
                               {nl.title}
                             </h3>
                           </div>
 
-                          <p className="text-sm text-black/90 dark:text-primary font-body leading-relaxed flex-grow mb-6">
+                          <p className="text-xs sm:text-sm text-black/90 dark:text-primary font-body leading-relaxed flex-grow mb-4 sm:mb-6">
                             {nl.summary}
                           </p>
 
                           <Button
                             variant="outline"
                             size="sm"
-                            className="cursor-pointer w-full border-2 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300"
+                            className="cursor-pointer w-full border-2 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300 text-sm"
                             onClick={() =>
                               openNewsletterModal(nl.title, nl.content)
                             }
