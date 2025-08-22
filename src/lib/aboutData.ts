@@ -15,7 +15,7 @@ export const behindAP = {
 export const anita = {
   name: "Anita",
   quote: "Helping people turn property dreams into lasting wealth.",
-  image: "/images/anita.JPG",
+  image: "/images/anita.jpg",
   description: `
 For more than two decades ago, I built a successful career in the IT industry. It was a rewarding journey that sharpened my skills in research, analysis, and problem-solving. But throughout those 25 years, there was always one thing that pulled at my heart more than anything else: property.
 
@@ -45,7 +45,7 @@ Property has changed my life, and I believe it can change yours too. If you're r
 export const pratiksha = {
   name: "Pratiksha",
   quote: "Turning strategy into results with care and dedication.",
-  image: "/images/pratiksha.JPG",
+  image: "/images/pratiksha.jpg",
   description: `
 Property has been my passion for more than 15 years, and in that time, I've built a diverse portfolio spanning residential homes, acreages, SMSF investments, and house-and-land packages. From hands-on renovations to developing villas and townhouses, I've learned what it takes to unlock potential and build lasting wealth.
 
