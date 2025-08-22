@@ -160,7 +160,7 @@ export default function StatsSection() {
                   {/* Stats Display */}
                   <div className="space-y-3">
                     <div className="relative">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-black/90 group-hover:text-black dark:text-primary">
+                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-black/90 group-hover:text-black dark:text-primary max-md:text-white">
                         {stat.value}
                         <span className="text-primary max-md:text-[#ede7dd] text-3xl sm:text-4xl">
                           {stat.suffix}
@@ -169,7 +169,7 @@ export default function StatsSection() {
                     </div>
 
                     {/* Beige Label Text */}
-                    <p className="text-sm sm:text-base font-medium text-black leading-relaxed dark:text-primary">
+                    <p className="text-sm sm:text-base font-medium text-black leading-relaxed dark:text-primary max-md:text-white">
                       {stat.label}
                     </p>
                   </div>
