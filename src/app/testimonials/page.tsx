@@ -62,7 +62,7 @@ const CustomStar = ({
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="text-primary dark:text-accent"
+      className="text-primary"
     >
       <defs>
         {type === "half" && (
@@ -112,7 +112,7 @@ export default function TestimonialsPage() {
       />
 
       <section className="bg-light dark:bg-dark transition-colors duration-300 min-h-screen py-20 mt-15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Title */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -136,7 +136,7 @@ export default function TestimonialsPage() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition ${
                   selectedCategory === category
-                    ? "bg-primary text-white"
+                    ? "bg-primary text-white dark:text-black"
                     : "bg-muted/30 dark:bg-zinc-800 hover:bg-primary/20 dark:hover:bg-primary/40 text-dark dark:text-gray-300"
                 }`}
               >

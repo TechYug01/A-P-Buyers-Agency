@@ -45,7 +45,7 @@ export default function AboutUsPage() {
           className="bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/about.jpg')" }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">
+          <div className="max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">
             <div className="grid lg:grid-cols-[35%_65%] gap-12 items-center">
               {/* Image */}
               <motion.div
@@ -134,7 +134,7 @@ export default function AboutUsPage() {
 
         {/* Vision & Mission Section */}
         <section className="py-20 bg-gradient-to-b from-white via-gray-50/50 to-white dark:from-zinc-900 dark:via-zinc-800/50 dark:to-zinc-900 transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-[60%_40%] gap-8 items-start">
               {/* Image */}
               <motion.div
@@ -243,7 +243,7 @@ export default function AboutUsPage() {
             ref={anitaRef}
             className="bg-gray-50 dark:bg-zinc-900 transition-colors duration-300"
           >
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="max-w-6xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -290,7 +290,7 @@ export default function AboutUsPage() {
             ref={pratikshaRef}
             className="bg-primary/10 dark:bg-zinc-800 transition-colors duration-300"
           >
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="max-w-6xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}

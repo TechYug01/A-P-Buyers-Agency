@@ -25,7 +25,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="relative bg-gradient-to-b from-light via-gray-50/50 to-gray-100/50 dark:from-dark dark:via-zinc-800/50 dark:to-zinc-900/50 transition-colors duration-200 py-16 font-body overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Logo & Description */}

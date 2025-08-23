@@ -85,7 +85,7 @@ export default function OurServicesPage() {
       />
 
       <section className="bg-gradient-to-b from-light via-gray-50/30 to-light dark:from-dark dark:via-zinc-800/30 dark:to-dark transition-colors duration-300 mt-15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
           {/* Page Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

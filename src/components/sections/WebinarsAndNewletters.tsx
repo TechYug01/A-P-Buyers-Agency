@@ -79,7 +79,7 @@ export default function WebinarsAndNewsletters() {
     <>
       {/* Webinars & Newsletters Section */}
       <section className="relative py-12 md:py-20 bg-gradient-to-b from-white via-gray-50/30 to-white dark:from-black dark:via-zinc-900/30 dark:to-black transition-colors duration-300 overflow-hidden">
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="relative z-10 w-full max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
             {/* Webinars */}
             <motion.div
@@ -108,7 +108,7 @@ export default function WebinarsAndNewsletters() {
                     {webinars.map((webinar, idx) => (
                       <div
                         key={idx}
-                        className="flex-[0_0_100%] px-2 sm:px-3 md:px-4 h-full"
+                        className="flex-[0_0_100%] p-2 sm:px-3 md:px-4 h-full"
                       >
                         <div
                           className="h-full bg-[#E8DAD1]/30 border border-amber-900/30 rounded-2xl sm:rounded-3xl shadow-md transition-all duration-300 ease-out p-4 sm:p-6 md:p-8 flex flex-col hover:shadow-lg hover:bg-[#E8DAD1]/40 dark:bg-black w-full"
@@ -193,7 +193,7 @@ export default function WebinarsAndNewsletters() {
                     {newsletters.map((nl, idx) => (
                       <div
                         key={idx}
-                        className="flex-[0_0_100%] px-2 sm:px-3 md:px-4 h-full"
+                        className="flex-[0_0_100%] p-2 sm:px-3 md:px-4 h-full"
                       >
                         <div className="bg-[#E8DAD1]/30 border border-amber-900/30 rounded-2xl sm:rounded-3xl shadow-md p-4 sm:p-6 md:p-8 flex flex-col h-full hover:bg-[#E8DAD1]/40 hover:shadow-lg transition-all duration-300 dark:bg-black w-full">
                           <div className="mb-2">

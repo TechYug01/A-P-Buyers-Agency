@@ -61,7 +61,7 @@ const services = [
 export default function ServicesOverview() {
   return (
     <section className="relative py-20 bg-gradient-to-b from-white via-gray-50/30 to-white dark:from-zinc-900 dark:via-zinc-800/30 dark:to-zinc-900 transition-colors duration-300 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -91,7 +91,7 @@ export default function EventsCommunityPage() {
 
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-b from-light via-primary/5 to-light dark:from-dark dark:via-primary/10 dark:to-dark transition-colors duration-300 mt-15 overflow-hidden">
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
+        <div className="relative z-10 max-w-5xl min-[1920px]:max-w-[1600px] mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ export default function EventsCommunityPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="text-base sm:text-lg lg:text-xl text-muted-foreground dark:text-gray-300 font-body max-w-3xl mx-auto leading-relaxed mb-8"
+            className="text-base sm:text-lg lg:text-xl text-muted-foreground dark:text-gray-300 font-body max-w-3xl min-[1920px]:max-w-[1000px] mx-auto leading-relaxed mb-8"
           >
             From sponsoring local teams to hosting property workshops and
             webinars, we&apos;re committed to strengthening our community and
@@ -139,7 +139,7 @@ export default function EventsCommunityPage() {
         id="events"
         className="relative py-20 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/50 dark:from-zinc-800/50 dark:via-zinc-900 dark:to-zinc-800/50 transition-colors duration-300 overflow-hidden"
       >
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl min-[1920px]:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -233,7 +233,7 @@ export default function EventsCommunityPage() {
 
       {/* Webinars */}
       <section className="relative py-20 bg-gradient-to-b from-light via-primary/5 to-light dark:from-dark dark:via-primary/10 dark:to-dark transition-colors duration-300 overflow-hidden">
-        <div className="relative z-10 max-w-6xl mx-auto px-4">
+        <div className="relative z-10 max-w-6xl min-[1920px]:max-w-[1600px] mx-auto px-4">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -320,7 +320,7 @@ export default function EventsCommunityPage() {
 
       {/* Newsletters */}
       <section className="py-20 bg-gray-50 dark:bg-zinc-800 transition-colors duration-200">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl min-[1920px]:max-w-[1600px] mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -380,7 +380,7 @@ export default function EventsCommunityPage() {
         id="partner-with-us"
         className="relative py-20 bg-gradient-to-b from-light via-primary/5 to-light dark:from-dark dark:via-primary/10 dark:to-dark transition-colors duration-300 overflow-hidden"
       >
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-4xl min-[1920px]:max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -492,7 +492,7 @@ export default function EventsCommunityPage() {
 
       {/* Social Media Integration */}
       <section className="relative py-20 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/50 dark:from-zinc-800/50 dark:via-zinc-900 dark:to-zinc-800/50 transition-colors duration-300">
-        <div className="relative z-10 max-w-5xl mx-auto px-4">
+        <div className="relative z-10 max-w-5xl min-[1920px]:max-w-[1500px] mx-auto px-4">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}

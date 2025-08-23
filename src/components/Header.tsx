@@ -41,7 +41,7 @@ export default function Header() {
         "bg-accent dark:bg-zinc-900/90 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20 shadow-lg"
       )}
     >
-      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between min-[1920px]:max-w-[1600px]">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <div className="relative">

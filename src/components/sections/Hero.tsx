@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-[calc(100vh)] max-[430px]:h-[110vh] mt-15 flex items-center justify-center bg-black overflow-hidden">
+    <section className="relative w-full h-[100vh] max-[430px]:h-[110vh] mt-15 flex items-center justify-center bg-black overflow-hidden">
       {/* Fallback Image */}
       <img
         src="/images/homepage.jpg"
