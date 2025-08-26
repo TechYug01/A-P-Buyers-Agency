@@ -70,7 +70,7 @@ export default function AboutUsPage() {
                   onClick={() =>
                     handleScroll(anitaRef, setShowAnita, showAnita)
                   }
-                  className="group absolute bottom-24 left-6 bg-gradient-to-r from-primary/90 to-primary/70 hover:from-primary hover:to-primary/90 text-white font-semibold px-6 py-3 rounded-2xl shadow-2xl border border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer dark:text-black"
+                  className="group absolute top-64 max-[500px]:top-54 max-[600px]:top-55 right-6 bg-gradient-to-r from-primary/90 to-primary/70 hover:from-primary hover:to-primary/90 text-white font-semibold px-6 py-3 rounded-2xl shadow-2xl border border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer dark:text-black"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
@@ -93,7 +93,7 @@ export default function AboutUsPage() {
                   onClick={() =>
                     handleScroll(pratikshaRef, setShowPratiksha, showPratiksha)
                   }
-                  className="group absolute top-84 max-[500px]:top-64 max-[600px]:top-55 right-6 bg-gradient-to-r from-white/90 to-white/70 hover:from-white hover:to-white/90 text-gray-800 font-semibold px-6 py-3 rounded-2xl shadow-2xl border border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
+                  className="group absolute bottom-40 left-6 bg-gradient-to-r from-white/90 to-white/70 hover:from-white hover:to-white/90 text-gray-800 font-semibold px-6 py-3 rounded-2xl shadow-2xl border border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
