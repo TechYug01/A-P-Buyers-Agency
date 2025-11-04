@@ -1,6 +1,7 @@
 "use client";
 
 import NewsletterModal from "@/components/Newsletter";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -604,6 +605,8 @@ export default function EventsCommunityPage() {
           />
         )}
       </section>
+
+      <NewsletterSignup />
 
       {/* Partner Form Section */}
       <section
