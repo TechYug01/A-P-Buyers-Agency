@@ -92,7 +92,13 @@ export default function TestimonialCarousel() {
   );
   const [isMobile, setIsMobile] = useState(false);
   const [testimonials, setTestimonials] = useState<
-    { name: string; category: string; description: string; rating: number }[]
+    {
+      name: string;
+      category: string;
+      description: string;
+      rating: number;
+      included?: boolean;
+    }[]
   >([]);
   const [loading, setLoading] = useState(true);
 

@@ -20,6 +20,7 @@ interface Testimonial {
   category: string;
   description: string;
   rating: number;
+  included?: boolean;
 }
 
 const StarRating = ({

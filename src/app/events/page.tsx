@@ -34,6 +34,7 @@ interface Event {
   description: string;
   image: string;
   link: string;
+  included?: boolean;
 }
 
 interface Webinar {
@@ -42,12 +43,14 @@ interface Webinar {
   date: string;
   time: string;
   url: string;
+  included?: boolean;
 }
 
 interface Newsletter {
   title: string;
   summary: string;
   content: string;
+  included?: boolean;
 }
 
 export default function EventsCommunityPage() {

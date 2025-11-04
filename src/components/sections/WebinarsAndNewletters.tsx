@@ -15,12 +15,14 @@ interface Webinar {
   date: string;
   time: string;
   url: string;
+  included?: boolean;
 }
 
 interface Newsletter {
   title: string;
   summary: string;
   content: string;
+  included?: boolean;
 }
 
 export default function WebinarsAndNewsletters() {

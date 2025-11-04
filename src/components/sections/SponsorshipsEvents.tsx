@@ -14,6 +14,7 @@ interface Event {
   description: string;
   image: string;
   link: string;
+  included?: boolean;
 }
 
 export default function SponsorshipsEventsOverview() {

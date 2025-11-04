@@ -3,9 +3,7 @@ export const getEvents = async () => {
     const res = await fetch("/api/events", { cache: "no-store" });
     const data = await res.json();
     const filteredData = Array.isArray(data)
-      ? data
-          .filter((item) => item.included)
-          .map(({ included, ...rest }) => rest)
+      ? data.filter((item) => item.included)
       : [];
 
     return filteredData;
@@ -19,9 +17,7 @@ export const getWebinars = async () => {
     const res = await fetch("/api/webinars", { cache: "no-store" });
     const data = await res.json();
     const filteredData = Array.isArray(data)
-      ? data
-          .filter((item) => item.included)
-          .map(({ included, ...rest }) => rest)
+      ? data.filter((item) => item.included)
       : [];
 
     return filteredData;
@@ -35,9 +31,7 @@ export const getNewsletters = async () => {
     const res = await fetch("/api/newsletters", { cache: "no-store" });
     const data = await res.json();
     const filteredData = Array.isArray(data)
-      ? data
-          .filter((item) => item.included)
-          .map(({ included, ...rest }) => rest)
+      ? data.filter((item) => item.included)
       : [];
 
     return filteredData;
