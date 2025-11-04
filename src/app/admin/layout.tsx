@@ -2,7 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function AdminLayout({
   children,
@@ -10,18 +10,21 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const { isLoaded, isSignedIn, user } = useUser();
+  const [redirecting, setRedirecting] = useState(false);
 
   useEffect(() => {
     if (isLoaded) {
       if (!isSignedIn) {
-        redirect("/sign-in");
+        setRedirecting(true);
+        setTimeout(() => redirect("/sign-in"), 500);
       } else if (user?.username !== "admin") {
-        redirect("/unauthorized");
+        setRedirecting(true);
+        setTimeout(() => redirect("/unauthorized"), 500);
       }
     }
   }, [isLoaded, isSignedIn, user]);
 
-  if (!isLoaded) {
+  if (!isLoaded || redirecting) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div
