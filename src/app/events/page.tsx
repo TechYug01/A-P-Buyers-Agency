@@ -4,8 +4,9 @@ import NewsletterModal from "@/components/Newsletter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import WebinarRegisterModal from "@/components/WebinarFormModal";
 import { socialLinks, whatsApp } from "@/lib/contactData";
-import { events, newsletters, webinars } from "@/lib/eventsData";
+import { getEvents, getNewsletters, getWebinars } from "@/lib/eventsData";
 import SEO from "@/lib/seo";
 import { motion } from "framer-motion";
 import {
@@ -24,8 +25,30 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+interface Event {
+  title: string;
+  date: string;
+  description: string;
+  image: string;
+  link: string;
+}
+
+interface Webinar {
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  url: string;
+}
+
+interface Newsletter {
+  title: string;
+  summary: string;
+  content: string;
+}
 
 export default function EventsCommunityPage() {
   const [loading, setLoading] = useState(false);
@@ -34,6 +57,18 @@ export default function EventsCommunityPage() {
     title: "",
     content: "",
   });
+  const [registerModal, setRegisterModal] = useState({
+    isOpen: false,
+    webinarTitle: "",
+  });
+  const [events, setEvents] = useState<Event[]>([]);
+  const [webinars, setWebinars] = useState<Webinar[]>([]);
+  const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
+  const [eventLoading, setEventLoading] = useState(true);
+  const [webinarLoading, setWebinarLoading] = useState(true);
+  const [newsletterLoading, setNewsletterLoading] = useState(true);
+
+  const cacheTTL = 5 * 60 * 1000;
 
   const openNewsletterModal = (title: string, content: string) => {
     setModalState({ isOpen: true, title, content });
@@ -42,6 +77,126 @@ export default function EventsCommunityPage() {
   const closeModal = () => {
     setModalState({ ...modalState, isOpen: false });
   };
+
+  useEffect(() => {
+    async function fetchEvents() {
+      setEventLoading(true);
+
+      try {
+        const cachedEvents = localStorage.getItem("eventsCache");
+        if (cachedEvents) {
+          try {
+            const { data, ts } = JSON.parse(cachedEvents);
+            if (Date.now() - ts < cacheTTL) {
+              setEvents(data);
+              setEventLoading(false);
+              return;
+            }
+          } catch (parseError) {
+            console.error("Failed to parse cached events:", parseError);
+            localStorage.removeItem("eventsCache");
+          }
+        }
+
+        const data = await getEvents();
+        if (data) {
+          setEvents(data);
+          try {
+            localStorage.setItem(
+              "eventsCache",
+              JSON.stringify({ data, ts: Date.now() })
+            );
+          } catch (storageError) {
+            console.error("Failed to cache events:", storageError);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setEventLoading(false);
+      }
+    }
+
+    async function fetchWebinars() {
+      setWebinarLoading(true);
+
+      try {
+        const cachedWebinars = localStorage.getItem("webinarsCache");
+        if (cachedWebinars) {
+          try {
+            const { data, ts } = JSON.parse(cachedWebinars);
+            if (Date.now() - ts < cacheTTL) {
+              setWebinars(data);
+              setWebinarLoading(false);
+              return;
+            }
+          } catch (parseError) {
+            console.error("Failed to parse cached webinars:", parseError);
+            localStorage.removeItem("webinarsCache");
+          }
+        }
+
+        const data = await getWebinars();
+        if (data) {
+          setWebinars(data);
+          try {
+            localStorage.setItem(
+              "webinarsCache",
+              JSON.stringify({ data, ts: Date.now() })
+            );
+          } catch (storageError) {
+            console.error("Failed to cache webinars:", storageError);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching webinars:", error);
+      } finally {
+        setWebinarLoading(false);
+      }
+    }
+
+    async function fetchNewsletters() {
+      setNewsletterLoading(true);
+
+      try {
+        const cachedNewsletters = localStorage.getItem("newslettersCache");
+        if (cachedNewsletters) {
+          try {
+            const { data, ts } = JSON.parse(cachedNewsletters);
+            if (Date.now() - ts < cacheTTL) {
+              setNewsletters(data);
+              setNewsletterLoading(false);
+              return;
+            }
+          } catch (parseError) {
+            console.error("Failed to parse cached newsletters:", parseError);
+            localStorage.removeItem("newslettersCache");
+          }
+        }
+
+        const data = await getNewsletters();
+        if (data) {
+          setNewsletters(data);
+          try {
+            localStorage.setItem(
+              "newslettersCache",
+              JSON.stringify({ data, ts: Date.now() })
+            );
+          } catch (storageError) {
+            console.error("Failed to cache newsletters:", storageError);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching newsletters:", error);
+      } finally {
+        setNewsletterLoading(false);
+      }
+    }
+
+    fetchEvents();
+    fetchWebinars();
+    fetchNewsletters();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,80 +309,100 @@ export default function EventsCommunityPage() {
           </motion.div>
 
           {/* Events Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((event, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                  ease: "easeOut",
-                }}
-                viewport={{ once: true }}
-                className="group relative"
-              >
-                {/* Event Card */}
-                <div
-                  className="h-full bg-white/90 dark:bg-zinc-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-3xl shadow-lg transition-all duration-300 ease-out overflow-hidden flex flex-col hover:shadow-2xl hover:-translate-y-2"
-                  style={{ willChange: "transform" }}
+          {eventLoading ? (
+            <div className="flex justify-center items-center h-auto">
+              <div
+                className="
+            animate-spin 
+            inline-block 
+            size-8 
+            border-4 
+            border-current 
+            border-t-transparent 
+            text-blue-500 
+            rounded-full 
+            dark:text-blue-400
+          "
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {events.map((event, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.1,
+                    ease: "easeOut",
+                  }}
+                  viewport={{ once: true }}
+                  className="group relative"
                 >
-                  {/* Image Section */}
-                  <div className="relative h-48">
-                    <Image
-                      src={event.image}
-                      alt={event.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                  {/* Event Card */}
+                  <div
+                    className="h-full bg-white/90 dark:bg-zinc-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-3xl shadow-lg transition-all duration-300 ease-out overflow-hidden flex flex-col hover:shadow-2xl hover:-translate-y-2"
+                    style={{ willChange: "transform" }}
+                  >
+                    {/* Image Section */}
+                    <div className="relative h-48">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
 
-                    {/* Image Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="p-6 flex flex-col flex-grow space-y-4">
-                    <div className="space-y-3">
-                      <h3 className="text-xl font-semibold font-display text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
-                        {event.title}
-                      </h3>
-
-                      <p className="text-sm font-medium text-primary/80 flex items-center gap-2">
-                        <Calendar className="w-3 h-3" />
-                        {event.date}
-                      </p>
-
-                      <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow">
-                        {event.description}
-                      </p>
+                      {/* Image Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     </div>
 
-                    {/* Button */}
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="group/btn mt-auto border-2 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300"
-                    >
-                      <Link
-                        href={event.link}
-                        target="_blank"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        <span>Learn More</span>
-                        <ExternalLink className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                      </Link>
-                    </Button>
-                  </div>
+                    {/* Content Section */}
+                    <div className="p-6 flex flex-col flex-grow space-y-4">
+                      <div className="space-y-3">
+                        <h3 className="text-xl font-semibold font-display text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
+                          {event.title}
+                        </h3>
 
-                  {/* Bottom Accent */}
-                  <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                        <p className="text-sm font-medium text-primary/80 flex items-center gap-2">
+                          <Calendar className="w-3 h-3" />
+                          {event.date}
+                        </p>
+
+                        <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow">
+                          {event.description}
+                        </p>
+                      </div>
+
+                      {/* Button */}
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="group/btn mt-auto border-2 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300"
+                      >
+                        <Link
+                          href={event.link}
+                          target="_blank"
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <span>Learn More</span>
+                          <ExternalLink className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                        </Link>
+                      </Button>
+                    </div>
+
+                    {/* Bottom Accent */}
+                    <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -248,74 +423,104 @@ export default function EventsCommunityPage() {
           </motion.div>
 
           {/* Webinars Grid */}
-          <div className="grid gap-8 md:grid-cols-2">
-            {webinars.map((webinar, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: idx * 0.1,
-                  ease: "easeOut",
-                }}
-                viewport={{ once: true }}
-                className="group relative"
-              >
-                {/* Webinar Card */}
-                <div
-                  className="h-full bg-white/90 dark:bg-zinc-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-3xl shadow-lg transition-all duration-300 ease-out p-8 flex flex-col hover:shadow-2xl hover:-translate-y-2"
-                  style={{ willChange: "transform" }}
+          {webinarLoading ? (
+            <div className="flex justify-center items-center h-auto">
+              <div
+                className="
+            animate-spin 
+            inline-block 
+            size-8 
+            border-4 
+            border-current 
+            border-t-transparent 
+            text-blue-500 
+            rounded-full 
+            dark:text-blue-400
+          "
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <div className="grid gap-8 md:grid-cols-2">
+              {webinars.map((webinar, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: idx * 0.1,
+                    ease: "easeOut",
+                  }}
+                  viewport={{ once: true }}
+                  className="group relative"
                 >
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-110">
-                      <Video className="w-8 h-8 text-primary" />
-                    </div>
-
-                    <div className="text-right">
-                      <div className="flex items-center gap-2 text-sm text-primary font-medium mb-1">
-                        <Clock className="w-3 h-3" />
-                        {webinar.time}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {webinar.date}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-grow space-y-4">
-                    <h3 className="text-xl font-bold font-display text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
-                      {webinar.title}
-                    </h3>
-
-                    <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed">
-                      {webinar.description}
-                    </p>
-                  </div>
-
-                  {/* Button */}
-                  <Button
-                    asChild
-                    size="lg"
-                    className="group/btn mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
+                  {/* Webinar Card */}
+                  <div
+                    className="h-full bg-white/90 dark:bg-zinc-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-3xl shadow-lg transition-all duration-300 ease-out p-8 flex flex-col hover:shadow-2xl hover:-translate-y-2"
+                    style={{ willChange: "transform" }}
                   >
-                    <Link
-                      href={webinar.url}
-                      target="_blank"
-                      className="flex items-center justify-center gap-2"
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-110">
+                        <Video className="w-8 h-8 text-primary" />
+                      </div>
+
+                      <div className="text-right">
+                        <div className="flex items-center gap-2 text-sm text-primary font-medium mb-1">
+                          <Clock className="w-3 h-3" />
+                          {webinar.time}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {webinar.date}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-grow space-y-4">
+                      <h3 className="text-xl font-bold font-display text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
+                        {webinar.title}
+                      </h3>
+
+                      <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed">
+                        {webinar.description}
+                      </p>
+                    </div>
+
+                    {/* Button */}
+                    <Button
+                      size="sm"
+                      className="group/btn mt-4 sm:mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full cursor-pointer"
+                      onClick={() =>
+                        setRegisterModal({
+                          isOpen: true,
+                          webinarTitle: webinar.title,
+                        })
+                      }
                     >
-                      <Users className="w-4 h-4" />
-                      <span>Join Webinar</span>
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                    </Link>
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                      <div className="flex items-center justify-center gap-2 text-sm">
+                        <Users className="w-4 h-4 flex-shrink-0" />
+                        <span>Register Now</span>
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 flex-shrink-0" />
+                      </div>
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
+        {registerModal.isOpen && (
+          <WebinarRegisterModal
+            isOpen={registerModal.isOpen}
+            webinarTitle={registerModal.webinarTitle}
+            onClose={() =>
+              setRegisterModal({ isOpen: false, webinarTitle: "" })
+            }
+          />
+        )}
       </section>
 
       {/* Newsletters */}
@@ -332,38 +537,60 @@ export default function EventsCommunityPage() {
               Newsletters & <span className="text-primary">Insights</span>
             </h2>
           </motion.div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {newsletters.map((nl, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                viewport={{ once: true }}
-                className="bg-white dark:bg-zinc-900 border border-border rounded-2xl shadow-lg p-6 flex flex-col"
-              >
-                <div className="mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-                    <Mail className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold font-display text-dark dark:text-white group-hover:text-primary transition-colors duration-200">
-                    {nl.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow mb-6">
-                  {nl.summary}
-                </p>
-                <Button
-                  variant="outline"
-                  onClick={() => openNewsletterModal(nl.title, nl.content)}
-                  size="sm"
-                  className="mt-6 cursor-pointer w-full"
+
+          {/* Newsletters Grid */}
+          {newsletterLoading ? (
+            <div className="flex justify-center items-center h-auto">
+              <div
+                className="
+            animate-spin 
+            inline-block 
+            size-8 
+            border-4 
+            border-current 
+            border-t-transparent 
+            text-blue-500 
+            rounded-full 
+            dark:text-blue-400
+          "
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <div className="grid gap-8 md:grid-cols-3">
+              {newsletters.map((nl, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-zinc-900 border border-border rounded-2xl shadow-lg p-6 flex flex-col"
                 >
-                  Read More
-                </Button>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shadow-lg mb-4">
+                      <Mail className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold font-display text-dark dark:text-white group-hover:text-primary transition-colors duration-200">
+                      {nl.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow mb-6">
+                    {nl.summary}
+                  </p>
+                  <Button
+                    variant="outline"
+                    onClick={() => openNewsletterModal(nl.title, nl.content)}
+                    size="sm"
+                    className="mt-6 cursor-pointer w-full"
+                  >
+                    Read More
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
 
         {modalState.isOpen && (

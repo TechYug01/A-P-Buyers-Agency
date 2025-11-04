@@ -1,6 +1,6 @@
 "use client";
 
-import { testimonials } from "@/lib/testimonialsData";
+import { getTestimonials } from "@/lib/testimonialsData";
 import clsx from "clsx";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
@@ -91,8 +91,54 @@ export default function TestimonialCarousel() {
     new Set()
   );
   const [isMobile, setIsMobile] = useState(false);
+  const [testimonials, setTestimonials] = useState<
+    { name: string; category: string; description: string; rating: number }[]
+  >([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+
+      const cacheTTL = 5 * 60 * 1000;
+
+      try {
+        const cached = localStorage.getItem("testimonialsCache");
+        if (cached) {
+          try {
+            const { data, ts } = JSON.parse(cached);
+            if (Date.now() - ts < cacheTTL) {
+              setTestimonials(data);
+              setLoading(false);
+              return;
+            }
+          } catch (parseError) {
+            console.error("Failed to parse cached data:", parseError);
+            localStorage.removeItem("testimonialsCache");
+          }
+        }
+
+        const data = await getTestimonials();
+        if (data) {
+          setTestimonials(data);
+          try {
+            localStorage.setItem(
+              "testimonialsCache",
+              JSON.stringify({ data, ts: Date.now() })
+            );
+          } catch (storageError) {
+            console.error("Failed to cache testimonials:", storageError);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -185,87 +231,107 @@ export default function TestimonialCarousel() {
           </motion.div>
 
           {/* CAROUSEL */}
-          <div
-            className="overflow-hidden"
-            ref={emblaRef}
-            onMouseEnter={() => {
-              setIsHovered(true);
-              stopAutoplay();
-            }}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <div className="flex gap-6">
-              {testimonials.map((testimonial, index) => {
-                const { visibleText, needsTruncation } = getTruncatedText(
-                  testimonial.description,
-                  index
-                );
-                const isExpanded = expandedIndexes.has(index);
+          {loading ? (
+            <div className="flex justify-center items-center h-auto">
+              <div
+                className="
+            animate-spin 
+            inline-block 
+            size-8 
+            border-4 
+            border-current 
+            border-t-transparent 
+            text-blue-500 
+            rounded-full 
+            dark:text-blue-400
+          "
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <div
+              className="overflow-hidden"
+              ref={emblaRef}
+              onMouseEnter={() => {
+                setIsHovered(true);
+                stopAutoplay();
+              }}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div className="flex gap-6">
+                {testimonials.map((testimonial, index) => {
+                  const { visibleText, needsTruncation } = getTruncatedText(
+                    testimonial.description,
+                    index
+                  );
+                  const isExpanded = expandedIndexes.has(index);
 
-                return (
-                  <div
-                    key={`testimonial-${index}-${testimonial.name}`}
-                    className="min-w-115 max-sm:min-w-0 flex-[0_0_100%] py-6 px-2"
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      className={clsx(
-                        "bg-[#E8DAD1]/30 border border-amber-900/30 dark:bg-zinc-900 p-8 rounded-2xl shadow-lg text-left h-full flex flex-col justify-between max-[1050px]:w-md max-[970px]:w-sm max-[870px]:w-[350px] max-[767px]:w-full",
-                        "transition-colors duration-200 cursor-pointer text-justify"
-                      )}
+                  return (
+                    <div
+                      key={`testimonial-${index}-${testimonial.name}`}
+                      className="min-w-115 max-sm:min-w-0 flex-[0_0_100%] py-6 px-2"
                     >
-                      {/* Description */}
-                      <div className="mb-4 space-y-3">
-                        <div className="text-base font-body text-muted-foreground dark:text-zinc-300 leading-relaxed text-justify">
-                          {visibleText}
-                        </div>
-
-                        {/* Read More/Less Button */}
-                        {isMobile && needsTruncation && (
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleReadMore(index);
-                            }}
-                            className="inline-flex items-center gap-1 mt-3 px-3 py-1.5 text-sm text-primary dark:text-accent font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-200 hover:bg-primary/5"
-                            aria-expanded={isExpanded}
-                            aria-label={
-                              isExpanded
-                                ? "Show less content"
-                                : "Show more content"
-                            }
-                          >
-                            {isExpanded ? "Read Less" : "Read More"}
-                            <span className="text-xs">
-                              {isExpanded ? "↑" : "↓"}
-                            </span>
-                          </button>
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className={clsx(
+                          "bg-[#E8DAD1]/30 border border-amber-900/30 dark:bg-zinc-900 p-8 rounded-2xl shadow-lg text-left h-full flex flex-col justify-between max-[1050px]:w-md max-[970px]:w-sm max-[870px]:w-[350px] max-[767px]:w-full",
+                          "transition-colors duration-200 cursor-pointer text-justify"
                         )}
-                      </div>
-
-                      {/* Footer */}
-                      <div className="mt-6">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-sm font-semibold text-primary font-san">
-                              {testimonial.name}
-                            </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">
-                              {testimonial.category}
-                            </div>
+                      >
+                        {/* Description */}
+                        <div className="mb-4 space-y-3">
+                          <div className="text-base font-body text-muted-foreground dark:text-zinc-300 leading-relaxed text-justify">
+                            {visibleText}
                           </div>
 
-                          <StarRating rating={testimonial.rating} size={16} />
+                          {/* Read More/Less Button */}
+                          {isMobile && needsTruncation && (
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleReadMore(index);
+                              }}
+                              className="inline-flex items-center gap-1 mt-3 px-3 py-1.5 text-sm text-primary dark:text-accent font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-200 hover:bg-primary/5"
+                              aria-expanded={isExpanded}
+                              aria-label={
+                                isExpanded
+                                  ? "Show less content"
+                                  : "Show more content"
+                              }
+                            >
+                              {isExpanded ? "Read Less" : "Read More"}
+                              <span className="text-xs">
+                                {isExpanded ? "↑" : "↓"}
+                              </span>
+                            </button>
+                          )}
                         </div>
-                      </div>
-                    </motion.div>
-                  </div>
-                );
-              })}
+
+                        {/* Footer */}
+                        <div className="mt-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="text-sm font-semibold text-primary font-san">
+                                {testimonial.name}
+                              </div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400">
+                                {testimonial.category}
+                              </div>
+                            </div>
+
+                            <StarRating rating={testimonial.rating} size={16} />
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

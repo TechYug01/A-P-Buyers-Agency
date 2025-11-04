@@ -1,3 +1,4 @@
+import NewsletterSignup from "@/components/NewsletterSignup";
 import Hero from "@/components/sections/Hero";
 import ServicesSection from "@/components/sections/Services";
 import SponsorshipsEventsOverview from "@/components/sections/SponsorshipsEvents";
@@ -23,6 +24,7 @@ export default function Home() {
       <ServicesSection />
       <SponsorshipsEventsOverview />
       <WebinarsAndNewsletters />
+      <NewsletterSignup />
     </>
   );
 }

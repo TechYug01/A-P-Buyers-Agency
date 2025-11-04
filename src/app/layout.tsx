@@ -5,6 +5,7 @@ import "./globals.css";
 import FloatingContacts from "@/components/FloatingContacts";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Lora, Playfair_Display, Quicksand } from "next/font/google";
 import { Toaster } from "sonner";
 
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://www.apbuyersagency.com.au/og-image.jpg",
+        url: "https://www.apbuyersagency.com.au/images/homepage.jpg",
       },
     ],
   },
@@ -54,20 +55,22 @@ export default function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <body className="font-body antialiased transition-colors duration-200">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-          <FloatingContacts />
-          <Footer />
-          <Toaster richColors position="top-center" />
-        </ThemeProvider>
-      </body>
+      <ClerkProvider>
+        <body className="font-body antialiased transition-colors duration-200">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+            <FloatingContacts />
+            <Footer />
+            <Toaster richColors position="top-center" />
+          </ThemeProvider>
+        </body>
+      </ClerkProvider>
     </html>
   );
 }

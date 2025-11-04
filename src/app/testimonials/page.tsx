@@ -1,9 +1,9 @@
 "use client";
 
 import SEO from "@/lib/seo";
-import { testimonials } from "@/lib/testimonialsData";
+import { getTestimonials } from "@/lib/testimonialsData";
 import { motion } from "framer-motion";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 const categories = [
   "All",
@@ -14,6 +14,13 @@ const categories = [
   "Development Opportunities",
   "Portfolio Management",
 ];
+
+interface Testimonial {
+  name: string;
+  category: string;
+  description: string;
+  rating: number;
+}
 
 const StarRating = ({
   rating,
@@ -97,11 +104,59 @@ const CustomStar = ({
 
 export default function TestimonialsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+
+      const cacheTTL = 5 * 60 * 1000;
+
+      try {
+        const cached = localStorage.getItem("testimonialsCache");
+        if (cached) {
+          try {
+            const { data, ts } = JSON.parse(cached);
+            if (Date.now() - ts < cacheTTL) {
+              setTestimonials(data);
+              setLoading(false);
+              return;
+            }
+          } catch (parseError) {
+            console.error("Failed to parse cached data:", parseError);
+            localStorage.removeItem("testimonialsCache");
+          }
+        }
+
+        const data = await getTestimonials();
+        if (data) {
+          setTestimonials(data);
+          try {
+            localStorage.setItem(
+              "testimonialsCache",
+              JSON.stringify({ data, ts: Date.now() })
+            );
+          } catch (storageError) {
+            console.error("Failed to cache testimonials:", storageError);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const filteredTestimonials =
     selectedCategory === "All"
       ? testimonials
-      : testimonials.filter((t) => t.category === selectedCategory);
+      : testimonials.filter(
+          (t: Testimonial) => t.category === selectedCategory
+        );
 
   return (
     <>
@@ -146,36 +201,56 @@ export default function TestimonialsPage() {
           </div>
 
           {/* Testimonials Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTestimonials.map((t, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white dark:bg-zinc-900 border border-border rounded-2xl p-6 shadow-md hover:shadow-lg transition flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  <StarRating rating={t.rating} size={18} />
+          {loading ? (
+            <div className="flex justify-center items-center h-auto">
+              <div
+                className="
+            animate-spin 
+            inline-block 
+            size-8 
+            border-4 
+            border-current 
+            border-t-transparent 
+            text-blue-500 
+            rounded-full 
+            dark:text-blue-400
+          "
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredTestimonials.map((t, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white dark:bg-zinc-900 border border-border rounded-2xl p-6 shadow-md hover:shadow-lg transition flex flex-col justify-between"
+                >
+                  <div className="space-y-4">
+                    <StarRating rating={t.rating} size={18} />
 
-                  {/* Description */}
-                  <p className="text-muted-foreground dark:text-gray-300 font-body leading-relaxed whitespace-pre-line text-sm">
-                    {t.description}
-                  </p>
-                </div>
+                    {/* Description */}
+                    <p className="text-muted-foreground dark:text-gray-300 font-body leading-relaxed whitespace-pre-line text-sm">
+                      {t.description}
+                    </p>
+                  </div>
 
-                {/* Name + Category */}
-                <div className="mt-6">
-                  <p className="font-display font-semibold text-dark dark:text-white">
-                    {t.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground dark:text-gray-400">
-                    {t.category}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  {/* Name + Category */}
+                  <div className="mt-6">
+                    <p className="font-display font-semibold text-dark dark:text-white">
+                      {t.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground dark:text-gray-400">
+                      {t.category}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

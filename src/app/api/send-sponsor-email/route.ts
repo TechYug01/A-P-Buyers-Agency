@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const { name, email, phone, organisation, message } = body;
 
     const response = await resend.emails.send({
-      from: "A&P Buyers Agency <onboarding@resend.dev>",
+      from: process.env.RESEND_FROM as string,
       to: "ap@apbuyersagency.com.au",
       subject: "New Partnership Proposal from Events & Community Page",
       html: `

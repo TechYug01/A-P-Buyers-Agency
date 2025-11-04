@@ -1,13 +1,68 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { events } from "@/lib/eventsData";
+import { getEvents } from "@/lib/eventsData";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+interface Event {
+  title: string;
+  date: string;
+  description: string;
+  image: string;
+  link: string;
+}
 
 export default function SponsorshipsEventsOverview() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      setLoading(true);
+      const cacheTTL = 5 * 60 * 1000;
+
+      try {
+        const cachedEvents = localStorage.getItem("eventsCache");
+        if (cachedEvents) {
+          try {
+            const { data, ts } = JSON.parse(cachedEvents);
+            if (Date.now() - ts < cacheTTL) {
+              setEvents(data);
+              setLoading(false);
+              return;
+            }
+          } catch (parseError) {
+            console.error("Failed to parse cached events:", parseError);
+            localStorage.removeItem("eventsCache");
+          }
+        }
+
+        const data = await getEvents();
+        if (data) {
+          setEvents(data);
+          try {
+            localStorage.setItem(
+              "eventsCache",
+              JSON.stringify({ data, ts: Date.now() })
+            );
+          } catch (storageError) {
+            console.error("Failed to cache events:", storageError);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchEvents();
+  }, []);
+
   return (
     <>
       {/* Events Section */}
@@ -126,80 +181,100 @@ export default function SponsorshipsEventsOverview() {
             </div>
 
             {/* Events Grid */}
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {events.map((event, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
-                    ease: "easeOut",
-                  }}
-                  viewport={{ once: true }}
-                  className="group relative"
-                >
-                  {/* Event Card */}
-                  <div
-                    className="h-full bg-white/90 dark:bg-zinc-900/90 border border-white/30 dark:border-gray-700/50 rounded-3xl shadow-lg transition-all duration-300 ease-out overflow-hidden flex flex-col hover:shadow-2xl hover:-translate-y-2"
-                    style={{ willChange: "transform" }}
+            {loading ? (
+              <div className="flex justify-center items-center h-auto">
+                <div
+                  className="
+            animate-spin 
+            inline-block 
+            size-8 
+            border-4 
+            border-current 
+            border-t-transparent 
+            text-blue-500 
+            rounded-full 
+            dark:text-blue-400
+          "
+                  role="status"
+                  aria-label="loading"
+                ></div>
+              </div>
+            ) : (
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {events.map((event, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      ease: "easeOut",
+                    }}
+                    viewport={{ once: true }}
+                    className="group relative"
                   >
-                    {/* Image Section */}
-                    <div className="relative h-48">
-                      <Image
-                        src={event.image}
-                        alt={event.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
+                    {/* Event Card */}
+                    <div
+                      className="h-full bg-white/90 dark:bg-zinc-900/90 border border-white/30 dark:border-gray-700/50 rounded-3xl shadow-lg transition-all duration-300 ease-out overflow-hidden flex flex-col hover:shadow-2xl hover:-translate-y-2"
+                      style={{ willChange: "transform" }}
+                    >
+                      {/* Image Section */}
+                      <div className="relative h-48">
+                        <Image
+                          src={event.image}
+                          alt={event.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
 
-                      {/* Image Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    </div>
-
-                    {/* Content Section */}
-                    <div className="p-6 flex flex-col flex-grow space-y-4">
-                      <div className="space-y-3">
-                        <h4 className="text-lg lg:text-xl font-display font-semibold text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
-                          {event.title}
-                        </h4>
-
-                        <div className="flex items-center gap-2 text-sm text-primary dark:text-accent">
-                          <Calendar className="w-3 h-3" />
-                          <span className="font-medium">{event.date}</span>
-                        </div>
-
-                        <p className="text-sm lg:text-base text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow">
-                          {event.description}
-                        </p>
+                        {/* Image Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       </div>
 
-                      {/* Button */}
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="group/btn mt-auto border-2 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300"
-                      >
-                        <Link
-                          href={event.link}
-                          target="_blank"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <span>View Details</span>
-                          <ExternalLink className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                        </Link>
-                      </Button>
-                    </div>
+                      {/* Content Section */}
+                      <div className="p-6 flex flex-col flex-grow space-y-4">
+                        <div className="space-y-3">
+                          <h4 className="text-lg lg:text-xl font-display font-semibold text-dark dark:text-white transition-colors duration-300 group-hover:text-primary">
+                            {event.title}
+                          </h4>
 
-                    {/* Bottom Accent */}
-                    <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                          <div className="flex items-center gap-2 text-sm text-primary dark:text-accent">
+                            <Calendar className="w-3 h-3" />
+                            <span className="font-medium">{event.date}</span>
+                          </div>
+
+                          <p className="text-sm lg:text-base text-muted-foreground dark:text-gray-300 font-body leading-relaxed flex-grow">
+                            {event.description}
+                          </p>
+                        </div>
+
+                        {/* Button */}
+                        <Button
+                          asChild
+                          variant="outline"
+                          size="sm"
+                          className="group/btn mt-auto border-2 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300"
+                        >
+                          <Link
+                            href={event.link}
+                            target="_blank"
+                            className="flex items-center justify-center gap-2"
+                          >
+                            <span>View Details</span>
+                            <ExternalLink className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                          </Link>
+                        </Button>
+                      </div>
+
+                      {/* Bottom Accent */}
+                      <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full" />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
