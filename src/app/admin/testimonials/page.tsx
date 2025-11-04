@@ -67,7 +67,7 @@ export default function TestimonialsAdmin() {
       const data = await res.json();
       const arrayData = Array.isArray(data) ? data : [];
 
-      const formatted = arrayData.map((t: any) => ({
+      const formatted = arrayData.map((t: Testimonial) => ({
         ...t,
         rating:
           t.rating !== undefined && t.rating !== null

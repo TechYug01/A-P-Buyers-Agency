@@ -132,11 +132,10 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true, campaignId });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(error);
-    return NextResponse.json(
-      { error: error.message || "Newsletter sending failed" },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "Newsletter sending failed";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

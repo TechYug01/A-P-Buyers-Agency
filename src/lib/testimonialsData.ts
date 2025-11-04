@@ -8,7 +8,6 @@ export const getTestimonials = async () => {
           .map(({ included, ...rest }) => rest)
       : [];
 
-    console.log("Fetched testimonials data:", filteredData);
     return filteredData;
   } catch (error) {
     console.error("Error fetching testimonials:", error);
