@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   await connectDB();
   try {
-    const testimonials = await Testimonial.find().sort({ createdAt: 1 });
+    const testimonials = await Testimonial.find().sort({ createdAt: -1 });
     return NextResponse.json(testimonials, { status: 200 });
   } catch (error) {
     console.error("GET testimonials error:", error);
